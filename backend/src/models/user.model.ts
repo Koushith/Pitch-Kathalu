@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
     displayName: {
-      //come from firebase
+      //comes from firebase
       type: String,
       required: true,
     },
@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
     },
     uid: {
       type: String, // from firebase
+      unique: true,
     },
   },
   {

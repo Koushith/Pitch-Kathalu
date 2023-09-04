@@ -6,9 +6,7 @@ import cors from "cors";
 
 import { errorHandler, notFound } from "./middlewares/errorHandler.js";
 import { connectToDB } from "./utils/db.js";
-import postRoutes from "./routes/post/post.route.js";
 import userRoutes from "./routes/user/user.route.js";
-import { verifyProofs } from "./controllers/post/post.controller.js";
 
 // init
 dotenv.config();
@@ -26,13 +24,6 @@ app.get("/api", (req, res) => {
 
 //user related
 app.use("/api/users", userRoutes);
-
-//post related
-app.use("/api/posts", postRoutes);
-
-// endpoint where Reclaim Wallet sends the proof to the backend
-app.use(express.text({ type: "*/*" }));
-app.post("/callback", verifyProofs);
 
 //custom middlewares
 app.use(notFound);
