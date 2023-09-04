@@ -12,7 +12,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     fetchProfileById: builder.query({
-      query: (id) => ({
+      query: (id: string) => ({
         url: `${USER_ENDPOINT}/${id}`,
         method: "GET",
       }),
@@ -23,12 +23,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    fetchUserById: builder.query({
-      query: (id) => ({
-        url: `${USER_ENDPOINT}/${id}`,
-        method: "GET",
-      }),
-    }),
+    // fetchUserById: builder.query({
+    //   query: (id) => ({
+    //     url: `${USER_ENDPOINT}/${id}`,
+    //     method: "GET",
+    //   }),
+    // }),
   }),
 });
 
@@ -37,5 +37,5 @@ export const {
   useLoginMutation,
   useFetchProfileByIdQuery,
   useFetchAllUsersQuery,
-  useFetchUserByIdQuery,
+  // useFetchUserByIdQuery,
 } = userApiSlice;

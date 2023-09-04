@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const paymentStatusOptions = ["PENDING", "SUCCESS", "FAILED"];
+
 const PaymentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +16,11 @@ const PaymentSchema = new mongoose.Schema({
   amount: {
     type: Number,
     required: true,
+  },
+  paymentStatus: {
+    type: String,
+    enum: paymentStatusOptions,
+    default: "PENDING",
   },
 });
 

@@ -55,7 +55,13 @@ export const TopBar = () => {
     const { displayName, email, photoURL, uid } = user;
     // here - it replaces whole -overrides
 
-    const res = await login({ displayName, email, photoURL, uid }).unwrap();
+    const res = await login({
+      displayName,
+      email,
+      photoURL,
+      uid,
+      user,
+    }).unwrap();
     console.log("res---", res);
   };
 
@@ -69,7 +75,7 @@ export const TopBar = () => {
         className="flex items-center justify-between p-4 mt-0 mb-0 ml-auto mr-auto "
         style={{ maxWidth: "1600px" }}
       >
-        <h1>Meme Lord 😹</h1>
+        <h1>Pitch Kathalu 📄</h1>
         <div className="flex">
           <div className="hidden md:block">
             {" "}

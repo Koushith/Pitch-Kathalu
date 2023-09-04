@@ -1,22 +1,21 @@
 import mongoose from "mongoose";
 
-const paymentStatusOptions = ["PENDING", "SUCCESS", "FAILED"];
-
-const ScriptsSchema = new mongoose.Schema({
-  pdfUrl: {
+const ScriptSchema = new mongoose.Schema({
+  scriptUrl: {
     type: String,
     unique: true,
   },
+  title: String, // Add a title field to store the script's title
+
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  paymentStatus: {
-    type: String,
-    enum: paymentStatusOptions, // Use the enum validator to restrict values to the allowed options
-    default: "PENDING",
+  uploadDate: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-export const Script = mongoose.model("Script", ScriptsSchema);
+export const Script = mongoose.model("Script", ScriptSchema);

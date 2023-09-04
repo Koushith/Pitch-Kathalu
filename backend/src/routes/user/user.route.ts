@@ -5,6 +5,7 @@ import {
   getAllUsers,
   getUserById,
 } from "../../controllers/user/user.controller.js";
+import { protectedRoute } from "../../middlewares/authMiddleware.js";
 
 const router = express.Router();
 

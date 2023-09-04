@@ -53,13 +53,13 @@ export const signupWithGoogle = async () => {
 export const signOutUser = async () => await signOut(auth);
 
 // File upload
-const storage = getStorage();
-const storageRef = ref(storage);
 
 export const uploadFile = async (file: any) => {
   try {
-    const storageFileRef = ref(storageRef, file.name);
+    const storage = getStorage();
+    const storageRef = ref(storage);
 
+    const storageFileRef = ref(storageRef, file.name);
     // Create a reference to the file with its original name
     const uploadTask = uploadBytesResumable(storageFileRef, file);
 
