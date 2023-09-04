@@ -6,6 +6,7 @@ import cors from "cors";
 
 import { errorHandler, notFound } from "./middlewares/errorHandler.js";
 import { connectToDB } from "./utils/db.js";
+import scriptRoutes from "./routes/script/script.route.js";
 import userRoutes from "./routes/user/user.route.js";
 
 // init
@@ -22,10 +23,13 @@ app.get("/api", (req, res) => {
   res.send("This route works");
 });
 
-//user related
+// user related
 app.use("/api/users", userRoutes);
 
-//custom middlewares
+// Scripts related routes
+app.use("/api/script", scriptRoutes);
+
+// custom middlewares
 app.use(notFound);
 app.use(errorHandler);
 
