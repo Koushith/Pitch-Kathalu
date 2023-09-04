@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signupWithGoogle } from "@/utils";
-import { useLoginMutation } from "@/slices/usersApiSlice";
-import { setCredientials } from "@/slices/authSlice";
+
 import {
   Card,
   CardHeader,
@@ -15,6 +14,8 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { ChromeIcon } from "lucide-react";
+import { setCredientials } from "@/slices/userSlice";
+import { useLoginMutation } from "@/slices/userApiSlice";
 
 export const AuthScreen = () => {
   const { isAuthendicated } = useSelector((state) => state.auth);
@@ -32,7 +33,7 @@ export const AuthScreen = () => {
 
   const loginHandler = async () => {
     let { user } = await signupWithGoogle();
-
+    console.log("user,", user);
     dispatch(setCredientials({ ...user }));
     const { displayName, email, photoURL, uid } = user;
 

@@ -1,9 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { logout, setCredientials } from "@/slices/authSlice";
-import {
-  useFetchProfileByIdQuery,
-  useLoginMutation,
-} from "@/slices/usersApiSlice";
+
 import { signupWithGoogle } from "@/utils";
 import { ButtonIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useEffect } from "react";
@@ -21,6 +17,11 @@ import {
 import { useTheme } from "@/theme";
 import { LogOutIcon, Moon, Settings, Sun, User2Icon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import {
+  useLoginMutation,
+  useFetchProfileByIdQuery,
+} from "@/slices/userApiSlice";
+import { setCredientials, logout } from "@/slices/userSlice";
 
 export const TopBar = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -31,11 +32,6 @@ export const TopBar = () => {
   const { data, isLoading: isUserIdLoading } = useFetchProfileByIdQuery(
     userInfo?.uid
   );
-  // console.log("outside effecttttttt-mongo id", data?.data?._id);
-  // useEffect(() => {
-  //   console.log("inside effecttttttt", data.data._id);
-  //   setCredientials({ mongoUserId: data.data._id });
-  // }, [data, isUserIdLoading]);
 
   const fetchMongoId = () => {
     console.log("mongo---", data?.data?._id);

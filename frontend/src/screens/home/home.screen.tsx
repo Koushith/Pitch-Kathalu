@@ -1,227 +1,72 @@
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  useCreatePostMutation,
-  useFetchAllPostQuery,
-} from "@/slices/postApiSlice";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { HomeContainer } from "./home.styles";
-import { AllMemers } from "@/components";
-import { Loader2 } from "lucide-react";
+import { uploadFile } from "@/utils";
+import { Progress } from "@/components/ui/progress";
 
 export const HomeScreen = () => {
-  const { isError, isLoading, data, refetch } = useFetchAllPostQuery("Post");
-  const { mongoUserId } = useSelector((state) => state?.auth.userInfo);
-  const [isPostCreated, setIsPostCreated] = useState(false);
-  console.log("mongoUserId-----", mongoUserId);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState("");
+  const [progress, setProgress] = useState(0);
 
-  const [postUrl, setPostUrl] = useState("");
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]; // Get the selected file
+    setSelectedFile(file);
+  };
 
-  const [createPost] = useCreatePostMutation();
-  const navigate = useNavigate();
-  const submitHandler = async () => {
-    //TODO: - submit only after reclaim verification
-    //FIXME: - fix verification bug
+  const handleFileUpload = async () => {
+    setError(""); // Reset error message
+
+    if (!selectedFile) {
+      setError("No file selected.");
+      return;
+    }
+
+    // Check if the file type is allowed (PDF or DOCX)
+    if (
+      selectedFile.type !== "application/pdf" &&
+      selectedFile.type !==
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      setError("Invalid file type. Please select a PDF or DOCX file.");
+      return;
+    }
 
     try {
-      setIsPostCreated(true);
-      const res = await createPost({
-        user: mongoUserId,
-        instagramPosts: [
-          {
-            postUrl,
-            proof: "punchline", //TODO: fix this- allow only if proof is valid
-            isVerified: false,
-            //TODO: remove this hardcoded value.
-            originalPublishDate: "2023-08-19T00:00:00Z",
-          },
-        ],
-      }).unwrap();
-      if (res) {
-        setIsPostCreated(false);
-        refetch();
+      const { downloadURL, uploadStatus } = await uploadFile(
+        selectedFile,
+        (newProgress) => {
+          setProgress(newProgress);
+        }
+      );
 
-        navigate("/verify", {
-          state: {
-            callbackId: res?.callbackId,
-            reclaimUrl: res?.reclaimUrl,
-          },
-          replace: true,
-        });
-      }
+      console.log("File uploaded successfully:", downloadURL, uploadStatus);
     } catch (error) {
-      console.log("somwthing went wronhg- error", error);
-    } finally {
-      //
-      setIsPostCreated(false);
+      setError("Error occurred during file upload.");
+      console.error("Error occurred during file upload:", error);
     }
   };
 
   return (
-    <HomeContainer className="flex gap-20 items-start justify-start lg:w-1/2 ">
-      <div className="left ">
+    <HomeContainer className="flex gap-20 items-start justify-start lg:w-1/2">
+      <div className="left">
         <h1 className="font-semibold leading-none tracking-tight">
           What's Poppin??
         </h1>
         <div className="mt-4">
-          <Input
-            type="text"
-            placeholder="Enter the post URL"
-            name="postUrl"
-            value={postUrl}
-            onChange={(e) => setPostUrl(e.target.value)}
-          />
+          <Input type="file" accept=".pdf,.docx" onChange={handleFileChange} />
           <Button
-            variant={"default"}
-            size={"lg"}
-            onClick={submitHandler}
+            variant="default"
+            size="lg"
             className="mt-4"
+            onClick={handleFileUpload}
           >
-            {isPostCreated && (
-              <Loader2 className="h-[1.2rem] w-[1.2rem] mr-2 animate-spin" />
-            )}
-            {isPostCreated ? "Verifing" : "Verify"}
+            Upload File
           </Button>
-
-          {/* <div className="mt-8">
-            <h1 className="font-semibold leading-none tracking-tight">
-              Trending Verified Memes🔥
-            </h1>
-            <div className="mt-4">
-              {isLoading ? (
-                <>loading....</>
-              ) : (
-                <>
-                  {data?.posts?.map((post) => (
-                    <div key={post._id}>
-                      <p className="font-medium leading-none tracking-tight mt-10">
-                        {post.displayName}
-                      </p>
-                      <div className="grid grid-cols-1 md:grid-cols-2  gap-4 mt-4 post-cards ">
-                        {post.instagramPosts.map((p) => (
-                          <>
-                            <PostCard data={p} key={p._id} />
-                          </>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-          </div> */}
-
-          <AllMemers />
         </div>
-      </div>
-
-      <div className="right ">
-        {/* <Card className="bg-background sm:w-full  md:w-full leader-board">
-          <CardHeader>
-            <CardTitle>Leader Board 🚀</CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-6">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar
-                  className="bg-muted flex items-center rounded-full"
-                  style={{
-                    borderRadius: "50%",
-                    height: "40px",
-                    width: "40px",
-                  }}
-                >
-                  <AvatarImage
-                    // src={user?.avatar}
-                    className="aspect-square h-full w-full"
-                  />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">koushith</p>
-                  <p className="text-sm text-muted-foreground">5 Posts</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-
-          <CardContent className="grid gap-6">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar
-                  className="bg-muted flex items-center rounded-full"
-                  style={{
-                    borderRadius: "50%",
-                    height: "40px",
-                    width: "40px",
-                  }}
-                >
-                  <AvatarImage
-                    // src={user?.avatar}
-                    className="aspect-square h-full w-full"
-                  />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">koushith</p>
-                  <p className="text-sm text-muted-foreground">5 Posts</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-
-          <CardContent className="grid gap-6">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar
-                  className="bg-muted flex items-center rounded-full"
-                  style={{
-                    borderRadius: "50%",
-                    height: "40px",
-                    width: "40px",
-                  }}
-                >
-                  <AvatarImage
-                    // src={user?.avatar}
-                    className="aspect-square h-full w-full"
-                  />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">koushith</p>
-                  <p className="text-sm text-muted-foreground">5 Posts</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-
-          <CardContent className="grid gap-6">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar
-                  className="bg-muted flex items-center rounded-full"
-                  style={{
-                    borderRadius: "50%",
-                    height: "40px",
-                    width: "40px",
-                  }}
-                >
-                  <AvatarImage
-                    // src={user?.avatar}
-                    className="aspect-square h-full w-full"
-                  />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">koushith</p>
-                  <p className="text-sm text-muted-foreground">5 Posts</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card> */}
+        {error && <p className="text-red-500">{error}</p>}
+        <Progress value={12} />
       </div>
     </HomeContainer>
   );

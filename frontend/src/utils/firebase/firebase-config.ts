@@ -1,5 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 import {
   GoogleAuthProvider,
@@ -44,3 +51,32 @@ export const signupWithGoogle = async () => {
 //signout
 
 export const signOutUser = async () => await signOut(auth);
+
+// File upload
+const storage = getStorage();
+const storageRef = ref(storage);
+
+export const uploadFile = async (file: any) => {
+  try {
+    const storageFileRef = ref(storageRef, file.name);
+
+    // Create a reference to the file with its original name
+    const uploadTask = uploadBytesResumable(storageFileRef, file);
+
+    // Track the upload progress
+    uploadTask.on("state_changed", (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(`Upload is ${progress}% complete`);
+    });
+
+    // Wait for the upload to complete
+    const uploadStatus = await uploadTask;
+
+    // Get the download URL
+    const downloadURL = await getDownloadURL(storageFileRef);
+
+    return { downloadURL, uploadStatus };
+  } catch (error) {
+    console.error("Something went wrong while uploading:", error);
+  }
+};
