@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const ScriptSchema = new mongoose.Schema({
   scriptUrl: {
     type: String,
-    unique: true,
+    // unique: true,
   },
   title: String, // Add a title field to store the script's title
 
@@ -14,7 +14,6 @@ const ScriptSchema = new mongoose.Schema({
   },
   userUid: {
     type: String,
-    unique: true,
   },
   uploadDate: {
     type: Date,
@@ -25,7 +24,9 @@ const ScriptSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
+  },
+  avatar: {
+    type: String,
   },
 });
 

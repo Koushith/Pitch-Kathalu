@@ -5,6 +5,8 @@ import { asyncHandler } from "../../middlewares/asyncHandler.js";
 import { Script } from "../../models/script.model.js";
 import { User } from "../../models/user.model.js";
 
+// Upload Script after logining in and payment is success
+
 export const uploadScript = async (req: Request, res: Response) => {
   try {
     const { scriptUrl, title, userUid, userName, email } = req.body; // Assuming you pass the user ID
@@ -24,10 +26,11 @@ export const uploadScript = async (req: Request, res: Response) => {
     const script = await Script.create({
       scriptUrl,
       title,
-      userId: user?._id, // Assign the user ID
+      userId: user?._id, // Assign the user ID.
       userUid,
       userName,
       email,
+      avatar: user?.avatar,
     });
 
     if (script) {
@@ -46,7 +49,30 @@ export const uploadScript = async (req: Request, res: Response) => {
   }
 };
 
-// get one script
+// get all scripts..
+
+export const getAllScripts = asyncHandler(
+  async (req: Request, res: Response) => {
+    const allScripts = await Script.find({});
+
+    res.status(200).json({
+      allScripts,
+    });
+  }
+);
+
+// get one script based on user id
+
+export const getOneScript = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { userUid } = req.params;
+
+    const scripts = await Script.find({ userUid: userUid });
+    res.status(200).json({
+      scripts,
+    });
+  }
+);
 
 // update script
 
