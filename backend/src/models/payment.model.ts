@@ -8,6 +8,7 @@ const PaymentSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  // update this value in success page.
   script: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Script",
@@ -21,6 +22,10 @@ const PaymentSchema = new mongoose.Schema({
     type: String,
     enum: paymentStatusOptions,
     default: "PENDING",
+  },
+  paymentReference: {
+    type: String,
+    unique: true,
   },
 });
 

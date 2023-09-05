@@ -7,14 +7,25 @@ const ScriptSchema = new mongoose.Schema({
   },
   title: String, // Add a title field to store the script's title
 
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    // required: true,
+  },
+  userUid: {
+    type: String,
+    unique: true,
   },
   uploadDate: {
     type: Date,
     default: Date.now,
+  },
+  userName: {
+    type: String,
+  },
+  email: {
+    type: String,
+    unique: true,
   },
 });
 

@@ -29,9 +29,11 @@ export const TopBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthendicated, userInfo } = useSelector((state) => state.auth);
-  const { data, isLoading: isUserIdLoading } = useFetchProfileByIdQuery(
-    userInfo?.uid
-  );
+  const {
+    data,
+    isLoading: isUserIdLoading,
+    refetch,
+  } = useFetchProfileByIdQuery(userInfo?.uid);
 
   const fetchMongoId = () => {
     console.log("mongo---", data?.data?._id);
@@ -50,8 +52,9 @@ export const TopBar = () => {
   //const mongoId = data?.data?._id;
   const loginHandler = async () => {
     let { user } = await signupWithGoogle();
-
+    refetch();
     dispatch(setCredientials({ ...user }));
+
     const { displayName, email, photoURL, uid } = user;
     // here - it replaces whole -overrides
 

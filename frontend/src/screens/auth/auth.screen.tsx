@@ -50,7 +50,7 @@ export const AuthScreen = () => {
         {/* Updated: Added max-w-sm */}
         <Card className="bg-background">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Sign in to MemeLord</CardTitle>
+            <CardTitle className="text-2xl">Sign in to Pitch Kathalu</CardTitle>
             <CardDescription>
               Enter your email below to sign in to your account
             </CardDescription>
