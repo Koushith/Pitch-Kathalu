@@ -2,10 +2,12 @@ import { PostCard } from "@/components/post-card/post-card.component";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useFetchScriptUploadsQuery } from "@/slices/scriptApiSlice";
 import { useFetchProfileByIdQuery } from "@/slices/userApiSlice";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useSelector } from "react-redux";
+import { UploadedScripts } from "./uploaded-scripts.component";
 
 export const ProfileScreen = () => {
   const user = useSelector((state) => state.auth.userInfo);
@@ -16,7 +18,12 @@ export const ProfileScreen = () => {
     refetchOnMountOrArgChange: true,
   });
   const { displayName, avatar, email } = data?.data || {};
-  console.log("user-infooooo??????---", data, isLoading);
+  const { data: allScripts, isLoading: isScriptsLoading } =
+    useFetchScriptUploadsQuery(uid, {
+      refetchOnMountOrArgChange: true,
+    });
+
+  console.log("scripts---", allScripts);
   return (
     <>
       {" "}
@@ -83,10 +90,11 @@ export const ProfileScreen = () => {
                 </div>
               </CardContent>
             </Card>
+
             <div className="mt-10">
-              <h2 className="font-semibold leading-none tracking-tight mb-4">
+              {/* <h2 className="font-semibold leading-none tracking-tight mb-4">
                 Submitted Scripts 🚀
-              </h2>
+              </h2> */}
 
               {/* {isPostLoading ? (
           <>
@@ -115,6 +123,11 @@ export const ProfileScreen = () => {
             )}
           </>
         )} */}
+
+              <UploadedScripts
+                allScripts={allScripts}
+                isScriptsLoading={isScriptsLoading}
+              />
             </div>
           </div>
         )}
