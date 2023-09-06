@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 
 export const RecentUploads = ({ allScripts, isLoading }: any) => {
   const navigate = useNavigate();
-  console.log("all", allScripts);
+
   return (
     <div className="space-y-8">
       {isLoading ? (
         <>Loading..</>
       ) : (
         <>
-          {allScripts.slice(0, 5).map((s) => (
+          {allScripts.slice(-5).map((s) => (
             <div className="flex items-center" key={s?._id}>
               <Avatar
                 className="rounded-full border flex items-center justify-center"
@@ -50,7 +50,7 @@ export const RecentUploads = ({ allScripts, isLoading }: any) => {
         </>
       )}
 
-      <Button className="w-full" onClick={() => navigate("/users")}>
+      <Button className="w-full" onClick={() => navigate("/uploads")}>
         View More
       </Button>
     </div>

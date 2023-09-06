@@ -1,10 +1,13 @@
 import App from "@/App";
 import { Private } from "@/components";
 import {
+  AllUploadsScreen,
   AuthScreen,
   DashboardScreen,
   HomeScreen,
   ProfileScreen,
+  UserDetailsScreen,
+  UsersScreen,
 } from "@/screens";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -40,7 +43,31 @@ export const routerConfig = createBrowserRouter([
           <Private>
             <ProfileScreen />
           </Private>
-        ), // Wrap with Private component
+        ),
+      },
+      {
+        path: "/uploads",
+        element: (
+          <Private>
+            <AllUploadsScreen />
+          </Private>
+        ),
+      },
+      {
+        path: "/users ",
+        element: (
+          <Private>
+            <UsersScreen />
+          </Private>
+        ),
+      },
+      {
+        path: "/user/:id",
+        element: (
+          <Private>
+            <UserDetailsScreen />
+          </Private>
+        ),
       },
     ],
   },

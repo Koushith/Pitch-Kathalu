@@ -10,8 +10,10 @@ import { RecentUploads } from "./recent-uploads";
 import { useFetchAllScriptsQuery } from "@/slices/scriptApiSlice";
 
 export const DashboardScreen = () => {
-  const { data, isLoading } = useFetchAllScriptsQuery("");
-  const { allScripts } = data;
+  const { data, isLoading } = useFetchAllScriptsQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
   return (
     <>
       <h1 className="mb-4 font-semibold leading-none tracking-tight">
@@ -33,11 +35,20 @@ export const DashboardScreen = () => {
               strokeWidth="2"
               className="h-4 w-4 text-muted-foreground"
             >
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="10" y1="18" x2="8" y2="18" />
+              <line x1="10" y1="6" x2="8" y2="6" />
+              <line x1="10" y1="12" x2="8" y2="12" />
+              <circle cx="12" cy="12" r="9" />
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">₹47,200</div>
+            <div className="text-2xl font-bold">
+              {(data?.allScripts.length * 200).toLocaleString("en-IN", {
+                style: "currency",
+                currency: "INR",
+              })}
+            </div>
             {/* <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p> */}
@@ -86,7 +97,7 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">236</div>
+            <div className="text-2xl font-bold">{data?.allScripts?.length}</div>
             {/* <p className="text-xs text-muted-foreground">
               +19% from last month
             </p> */}
@@ -121,11 +132,14 @@ export const DashboardScreen = () => {
           <CardHeader>
             <CardTitle>Recently uploaded Scripts</CardTitle>
             <CardDescription>
-              Showing 5 of {allScripts?.length} scripts
+              Showing 5 of {data?.allScripts?.length} scripts
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentUploads allScripts={allScripts} isLoading={isLoading} />
+            <RecentUploads
+              allScripts={data?.allScripts}
+              isLoading={isLoading}
+            />
           </CardContent>
         </Card>
 
