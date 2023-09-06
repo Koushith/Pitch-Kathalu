@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { SideBarContainer } from "./sidebar.styles";
 import { HomeIcon, User2, Settings } from "lucide-react";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 export const SideBar = () => {
   const location = useLocation();
@@ -8,6 +9,16 @@ export const SideBar = () => {
   return (
     <SideBarContainer>
       <ul>
+        <li
+          className={`inline-flex items-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 ${
+            location.pathname === "/dashboard"
+              ? "bg-secondary"
+              : "hover:bg-secondary/80"
+          } h-9 px-4 py-2 w-full justify-start`}
+        >
+          <DashboardIcon className="h-[1.2rem] w-[1.2rem]" />{" "}
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
         <li
           className={`inline-flex items-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 ${
             location.pathname === "/" ? "bg-secondary" : "hover:bg-secondary/80"

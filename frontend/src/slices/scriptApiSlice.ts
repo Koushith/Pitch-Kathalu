@@ -16,6 +16,15 @@ const scriptApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
+    // fetch all scripts-> for admin
+
+    fetchAllScripts: builder.query({
+      query: () => ({
+        url: SCRIPT_ENDPOINT,
+        method: "GET",
+      }),
+    }),
+
     // fetch all uploads for particular user
 
     fetchScriptUploads: builder.query({
@@ -31,5 +40,8 @@ const scriptApiSlice = apiSlice.injectEndpoints({
 
 // Rest of your code...
 
-export const { useUploadScriptMutation, useFetchScriptUploadsQuery } =
-  scriptApiSlice;
+export const {
+  useUploadScriptMutation,
+  useFetchScriptUploadsQuery,
+  useFetchAllScriptsQuery,
+} = scriptApiSlice;

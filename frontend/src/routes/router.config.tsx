@@ -1,6 +1,11 @@
 import App from "@/App";
 import { Private } from "@/components";
-import { AuthScreen, HomeScreen, ProfileScreen } from "@/screens";
+import {
+  AuthScreen,
+  DashboardScreen,
+  HomeScreen,
+  ProfileScreen,
+} from "@/screens";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routerConfig = createBrowserRouter([
@@ -13,6 +18,14 @@ export const routerConfig = createBrowserRouter([
         element: (
           <Private>
             <HomeScreen />
+          </Private>
+        ), // Wrap with Private component
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <Private>
+            <DashboardScreen />
           </Private>
         ), // Wrap with Private component
       },
