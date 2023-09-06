@@ -8,11 +8,22 @@ import {
 import { RecentSignups } from "./recent-signup.component";
 import { RecentUploads } from "./recent-uploads";
 import { useFetchAllScriptsQuery } from "@/slices/scriptApiSlice";
+import { useFetchAllUsersQuery } from "@/slices/userApiSlice";
 
 export const DashboardScreen = () => {
   const { data, isLoading } = useFetchAllScriptsQuery("", {
     refetchOnMountOrArgChange: true,
   });
+
+  const {
+    data: users,
+    isLoading: isUserLoading,
+    refetch: refetchUsers,
+  } = useFetchAllUsersQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
+  console.log("users, ", users);
 
   return (
     <>
@@ -73,7 +84,7 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">236</div>
+            <div className="text-2xl font-bold">{users?.data?.length}</div>
             {/* <p className="text-xs text-muted-foreground">
               +180.1% from last month
             </p> */}
@@ -103,29 +114,6 @@ export const DashboardScreen = () => {
             </p> */}
           </CardContent>
         </Card>
-        {/* <Card className="bg-background">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Now</CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
-          </CardContent>
-        </Card> */}
       </div>
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 max-w-screen-lg mt-4 bg-background">
         <Card className="bg-background">
@@ -146,10 +134,12 @@ export const DashboardScreen = () => {
         <Card className="bg-background">
           <CardHeader>
             <CardTitle>Recent Signups</CardTitle>
-            <CardDescription>Showing 6 of 236 users</CardDescription>
+            <CardDescription>
+              Showing 6 of {users?.data?.length} users
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentSignups />
+            <RecentSignups users={users?.data} />
           </CardContent>
         </Card>
       </div>

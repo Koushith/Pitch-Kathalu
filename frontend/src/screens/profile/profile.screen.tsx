@@ -7,7 +7,7 @@ import { useFetchProfileByIdQuery } from "@/slices/userApiSlice";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useSelector } from "react-redux";
-import { UploadedScripts } from "./uploaded-scripts.component";
+import { UploadedScripts } from "../../components/uploaded-scripts/uploaded-scripts.component";
 
 export const ProfileScreen = () => {
   const user = useSelector((state) => state.auth.userInfo);
