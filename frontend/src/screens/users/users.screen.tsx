@@ -1,3 +1,7 @@
 export const UsersScreen = () => {
-  return <>Users Screen</>;
+  return (
+    <>
+      <h1>users screen</h1>
+    </>
+  );
 };

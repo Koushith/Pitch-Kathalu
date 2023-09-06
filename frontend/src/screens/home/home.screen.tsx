@@ -71,7 +71,7 @@ export const HomeScreen = () => {
 
   return (
     <HomeContainer className="flex gap-20 items-start justify-start lg:w-1/2">
-      <div className="left">
+      <div className="left mt-6">
         <h1 className="font-semibold leading-none tracking-tight">
           Upload Your Script 🚀
         </h1>

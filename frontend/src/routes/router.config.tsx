@@ -54,7 +54,7 @@ export const routerConfig = createBrowserRouter([
         ),
       },
       {
-        path: "/users ",
+        path: "/users",
         element: (
           <Private>
             <UsersScreen />
