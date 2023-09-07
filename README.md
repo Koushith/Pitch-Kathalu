@@ -91,6 +91,14 @@ To run this project locally, follow these steps:
 - **MERN Stack** (MongoDB, Express.js, React, Node.js) for full-stack development.
 - **Instamojo Payment Gateway** for handling registration fee payments.
 
+## Screenshots
+
+<img width="1783" alt="Screenshot 2023-09-06 at 3 23 10 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/2368758b-78db-4e41-9f26-b33f32439403">
+<img width="1783" alt="Screenshot 2023-09-06 at 3 24 08 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/92313905-ab89-4635-a961-076f80be2cd4">
+<img width="1370" alt="Screenshot 2023-09-06 at 3 35 46 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/3bd4933d-7d31-4bef-bc16-3b3d2ec9aaee">
+<img width="1783" alt="Screenshot 2023-09-06 at 3 35 00 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/d1072a6b-e8c4-4bef-8ef5-24b60fe2fa39">
+<img width="1230" alt="Screenshot 2023-08-16 at 10 52 41 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/49a187cd-31d1-43a7-b1e2-728dadd55279">
+<img width="1370" alt="Screenshot 2023-09-06 at 3 36 38 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/981e470c-f818-41e5-8d9c-dbd1d80118e4">
 
 ## Usage
 
