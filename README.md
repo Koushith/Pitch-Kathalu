@@ -53,6 +53,7 @@ To run this project locally, follow these steps:
    cd ..
    ```
 
+
 ### Configuration
 
 1. Create a `.env` file in the `backend` directory and add the following environment variables:
@@ -96,6 +97,8 @@ To run this project locally, follow these steps:
 <img width="1783" alt="Screenshot 2023-09-06 at 3 35 00 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/d1072a6b-e8c4-4bef-8ef5-24b60fe2fa39">
 <img width="1783" alt="Screenshot 2023-09-06 at 3 23 10 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/2368758b-78db-4e41-9f26-b33f32439403">
 <img width="1783" alt="Screenshot 2023-09-06 at 3 24 08 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/92313905-ab89-4635-a961-076f80be2cd4">
+<img width="1792" alt="Screenshot 2023-09-08 at 4 13 54 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/01c34aba-a88b-4ca9-9ced-e336daa40100">
+<img width="1792" alt="Screenshot 2023-09-08 at 4 13 39 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/2c9beb83-13b9-4f71-9f45-2a147eb35a45">
 <img width="1370" alt="Screenshot 2023-09-06 at 3 35 46 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/3bd4933d-7d31-4bef-bc16-3b3d2ec9aaee">
 <img width="1370" alt="Screenshot 2023-09-06 at 3 36 38 AM" src="https://github.com/Koushith/Pitch-Kathalu/assets/30016242/981e470c-f818-41e5-8d9c-dbd1d80118e4">
 
