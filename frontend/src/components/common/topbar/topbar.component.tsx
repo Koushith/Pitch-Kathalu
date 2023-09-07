@@ -36,8 +36,8 @@ export const TopBar = () => {
   } = useFetchProfileByIdQuery(userInfo?.uid);
 
   const fetchMongoId = () => {
-    console.log("mongo---", data?.data?._id);
-    dispatch(setCredientials({ hello: "hello" }));
+    console.log("mongo-- isAdmin-", data?.data?.isAdmin);
+    dispatch(setCredientials({ isAdmin: data?.data?.isAdmin }));
     console.log("is data there?", data?.data?._id);
     const mongoId = data?.data?._id;
     dispatch(setCredientials({ mongoUserId: mongoId }));

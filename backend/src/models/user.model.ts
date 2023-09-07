@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String, // from firebase
       unique: true,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

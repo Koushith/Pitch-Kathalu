@@ -5,6 +5,7 @@ const storedUserInfo = localStorage.getItem("userInfo");
 const initialState = {
   isAuthendicated: false,
   mongoUserId: "",
+  isAdmin: false,
   userInfo: storedUserInfo ? JSON.parse(storedUserInfo) : null,
 };
 
@@ -17,6 +18,7 @@ const authSlice = createSlice({
       //@ts-ignore
       (state.mongoUserId = action.payload.mongoUserId),
         (state.isAuthendicated = true),
+        (state.isAdmin = action.payload.isAdmin),
         //@ts-ignore // FIXME:- magic- it works -not sure how. but try to understand how
         (state.userInfo = { ...state.userInfo, ...action.payload });
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
