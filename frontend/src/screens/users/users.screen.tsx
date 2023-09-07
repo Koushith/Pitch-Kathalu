@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { RecentSignups } from "../dashboard/recent-signup.component";
 import { useFetchAllUsersQuery } from "@/slices/userApiSlice";
+import { useIsAdmin } from "@/hooks";
 
 export const UsersScreen = () => {
   const {
@@ -16,6 +17,9 @@ export const UsersScreen = () => {
   } = useFetchAllUsersQuery("", {
     refetchOnMountOrArgChange: true,
   });
+
+  const hooktest = useIsAdmin();
+  console.log("hookkkkkkk", hooktest);
   return (
     <Card className="bg-background max-w-screen-lg">
       <CardHeader>

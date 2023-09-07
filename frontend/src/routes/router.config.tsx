@@ -1,5 +1,6 @@
 import App from "@/App";
 import { Private } from "@/components";
+import { useIsAdmin } from "@/hooks";
 import {
   AllUploadsScreen,
   AuthScreen,

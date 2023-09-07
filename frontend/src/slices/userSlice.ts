@@ -25,6 +25,7 @@ const authSlice = createSlice({
     },
     logout: (state, action) => {
       state.userInfo = null;
+      state.isAdmin = false;
       (state.mongoUserId = ""), (state.isAuthendicated = false);
       // clear the local storage
       localStorage.clear();

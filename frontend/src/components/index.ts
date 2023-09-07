@@ -3,3 +3,5 @@ export * from "./common/topbar/topbar.component";
 
 export * from "./private/private.component";
 export * from "./uploaded-scripts/uploaded-scripts.component";
+
+export * from "./admin/admin.component";
