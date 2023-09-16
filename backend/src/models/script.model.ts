@@ -28,6 +28,17 @@ const ScriptSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+
+  status: {
+    type: String,
+    enum: ["PENDING", "FAILED", "SUCCESS"], // Restrict values to these options
+    default: "PENDING",
+  },
+
+  paymentId: {
+    type: String,
+    required: true,
+  },
 });
 
 export const Script = mongoose.model("Script", ScriptSchema);

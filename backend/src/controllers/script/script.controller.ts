@@ -1,6 +1,7 @@
 // upload script
 
 import { Request, Response } from "express";
+
 import { asyncHandler } from "../../middlewares/asyncHandler.js";
 import { Script } from "../../models/script.model.js";
 import { User } from "../../models/user.model.js";
@@ -9,35 +10,41 @@ import { User } from "../../models/user.model.js";
 
 export const uploadScript = async (req: Request, res: Response) => {
   try {
-    const { scriptUrl, title, userUid, userName, email } = req.body; // Assuming you pass the user ID
+    const { scriptUrl, title, userUid, userName, email, status, paymentId } =
+      req.body; // Assuming you pass the user ID
 
     console.log(scriptUrl, title, userUid);
 
     // Check if the user with the provided ID exists
     const user = await User.findOne({ uid: userUid });
-    console.log("user", user);
 
     if (!user) {
       res.status(400).json({ message: "User not found" });
       return;
     }
 
-    // Create the script document with the provided user reference
-    const script = await Script.create({
-      scriptUrl,
-      title,
-      userId: user?._id, // Assign the user ID.
-      userUid,
-      userName,
-      email,
-      avatar: user?.avatar,
-    });
-
-    if (script) {
-      res.status(201).json({
-        message: "File Saved Successfully",
-        script, // Include the populated script details in the response
+    if (status === "success") {
+      // Create the script document with the provided user reference
+      const script = await Script.create({
+        scriptUrl,
+        title,
+        userId: user?._id, // Assign the user ID.
+        userUid,
+        userName,
+        email,
+        avatar: user?.avatar,
+        status: "SUCCESS",
+        paymentId: paymentId,
       });
+
+      if (script) {
+        res.status(201).json({
+          message: "File Saved Successfully",
+          script, // Include the populated script details in the response
+        });
+      } else {
+        throw new Error("payment failed");
+      }
     } else {
       res
         .status(400)
