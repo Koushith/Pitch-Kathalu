@@ -1,12 +1,12 @@
 import App from "@/App";
 import { Private } from "@/components";
-import { useIsAdmin } from "@/hooks";
 import {
   AllUploadsScreen,
   AuthScreen,
   DashboardScreen,
   HomeScreen,
   ProfileScreen,
+  UploadScriptScreen,
   UserDetailsScreen,
   UsersScreen,
 } from "@/screens";
@@ -51,6 +51,14 @@ export const routerConfig = createBrowserRouter([
         element: (
           <Private>
             <AllUploadsScreen />
+          </Private>
+        ),
+      },
+      {
+        path: "/upload-script",
+        element: (
+          <Private>
+            <UploadScriptScreen />
           </Private>
         ),
       },

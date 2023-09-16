@@ -1,144 +1,119 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { HomeContainer } from "./home.styles";
-import { uploadFile } from "@/utils";
-import { Progress } from "@/components/ui/progress";
-import { Loader2 } from "lucide-react";
-import { useUploadScriptMutation } from "@/slices/scriptApiSlice";
-import { useSelector } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
+import { FileImage, UploadIcon } from "lucide-react";
+import { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const HomeScreen = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [error, setError] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [title, setTitle] = useState("");
-  const { mongoUserId, uid, displayName, email } = useSelector(
-    (state) => state.auth.userInfo
-  );
-  console.log("user info---", mongoUserId, uid, displayName, email);
-  const [uploadScript, { isSuccess }] = useUploadScriptMutation();
+  const [paymentLink, setPaymentLink] = useState("");
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0]; // Get the selected file
-    setSelectedFile(file);
+  const navigate = useNavigate();
+
+  // Define Callback Handler Functions
+  const onOpenHandler = (response) => {
+    alert("Payments Modal is Opened");
+    alert(JSON.stringify(response));
   };
 
-  const handleFileUpload = async () => {
-    setError(""); // Reset error message
+  const onCloseHandler = () => {
+    alert("Payments Modal is Closed");
+  };
 
-    if (!selectedFile) {
-      setError("No file selected.");
-      return;
-    }
+  const onPaymentSuccessHandler = (response) => {
+    alert("Payment Success");
+    console.log("Payment Success Response", response);
+    Instamojo.close();
+    navigate("/upload-script", {
+      state: {
+        status: "success",
+        paymentId: "MOJO3913E05Q49944019",
+      },
+    });
+  };
 
-    // Check if the file type is allowed (PDF or DOCX)
-    if (
-      selectedFile.type !== "application/pdf" &&
-      selectedFile.type !==
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ) {
-      setError("Invalid file type. Please select a PDF or DOCX file.");
-      return;
-    }
+  const onPaymentFailureHandler = (response) => {
+    alert("Payment Failure");
+    console.log("Payment Failure Response", response);
+    // TODO: change this later
+    Instamojo.close();
+    navigate("/upload-script", {
+      state: {
+        status: "success",
+        paymentId: "MOJO3913E05Q49944019",
+      },
+    });
+  };
 
-    try {
-      setIsLoading(true);
-      const { downloadURL, uploadStatus } = await uploadFile(selectedFile);
+  console.log("instamojo----", Instamojo);
+  useEffect(() => {
+    // Configure Handlers
 
-      const res = await uploadScript({
-        scriptUrl: downloadURL,
-        title: title,
-        userId: mongoUserId,
-        userUid: uid,
-        userName: displayName,
-        email: email,
-      }).unwrap();
-      console.log("res--------------", res);
-      setSelectedFile(null);
-      console.log("File uploaded successfully:", downloadURL, uploadStatus);
-      toast.success("File uploaded successfully");
-    } catch (error) {
-      setError("Error occurred during file upload.");
-      console.error("Error occurred during file upload:", error?.message);
-    } finally {
-      setIsLoading(false);
-      setSelectedFile(null);
-    }
+    Instamojo.configure({
+      handlers: {
+        onOpen: onOpenHandler,
+        onClose: onCloseHandler,
+        onSuccess: onPaymentSuccessHandler,
+        onFailure: onPaymentFailureHandler,
+      },
+    });
+  }, []);
+
+  const onButtonClick = () => {
+    Instamojo.open("https://www.instamojo.com/@sampad");
+  };
+
+  const navigateToUpload = () => {
+    navigate("/upload-script", {
+      state: {
+        paymentID: 1234,
+      },
+    });
   };
 
   return (
-    <HomeContainer className="flex gap-20 items-start justify-start lg:w-1/2">
-      <div className="left mt-6">
-        <h1 className="font-semibold leading-none tracking-tight">
-          Upload Your Script 🚀
-        </h1>
-        <div className="mt-6">
-          <label htmlFor="title"> Title</label>
-          <Input
-            type="text"
-            className="mt-2"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <div className="mt-4">
-            <div className="flex items-center bg-background justify-center w-full ">
-              <label
-                htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-64 border-2  border-dashed rounded-lg cursor-pointer  "
-              >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <svg
-                    className="w-8 h-8 mb-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                    />
-                  </svg>
-                  <p className="mb-2 text-sm">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs">PDF or DOCX</p>
-                </div>
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  className="hidden"
-                  accept=".pdf,.docx"
-                  onChange={handleFileChange}
-                />
-              </label>
-            </div>
-            {selectedFile && <p>Selected File: {selectedFile?.name}</p>}
-          </div>
-          <Button
-            variant="default"
-            size="lg"
-            className="mt-4"
-            onClick={handleFileUpload}
+    <HomeContainer className="">
+      {/* <h1 className="font-semibold leading-none mt-4 tracking-tight">Home</h1> */}
+      <div className="flex gap-8 items-start mt-4 justify-start lg:w-1/2">
+        <div style={{ width: "150px" }} className="bg-background">
+          <label
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-between rounded-md border-2 border-muted cursor-pointer bg-background p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&amp;:has([data-state=checked])]:border-primary"
+            htmlFor="card"
+            style={{ paddingTop: "30px", paddingBottom: "30px" }}
           >
-            {isLoading && (
-              <Loader2 className="h-[1.2rem] w-[1.2rem] mr-2 animate-spin" />
-            )}
-            {isLoading ? "Uploading..." : "Upload"}
-          </Button>
+            <UploadIcon className="mb-6" />
+            Upload Script
+          </label>
         </div>
-
-        {error && <p className="text-red-500">{error}</p>}
+        {/* TODO: This is for testing- remove later */}
+        <div
+          style={{ width: "150px" }}
+          className="bg-background"
+          onClick={navigateToUpload}
+        >
+          <label
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-between rounded-md border-2 border-muted cursor-pointer bg-background p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&amp;:has([data-state=checked])]:border-primary"
+            htmlFor="card"
+            style={{ paddingTop: "30px", paddingBottom: "30px" }}
+          >
+            <FileImage className="mb-6" />
+            View Uploaded
+          </label>
+        </div>
       </div>
-
+      {/* <Button onClick={onButtonClick}>Grenerate payment link</Button> */}
       <Toaster position="top-right" reverseOrder={false} />
     </HomeContainer>
   );
 };
+
+/**
+ * Payment Success Response 
+ * {status: 'success', paymentId: 'MOJO3913E05Q49944019'}
+paymentId
+: 
+"MOJO3913E05Q49944019"
+status
+: 
+"success"
+ */

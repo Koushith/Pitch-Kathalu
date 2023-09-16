@@ -11,3 +11,4 @@ export * from "./users/users.screen";
 export * from "./user-details/user-detail.screen";
 
 export * from "./all-uploads/all-uploads.screen";
+export * from "./upload-script/upload-script.screen";
