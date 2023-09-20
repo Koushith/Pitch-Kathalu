@@ -35,7 +35,8 @@ const AppContainer = styled.div`
     width: 100%;
     margin-top: 1rem;
     margin-left: 100px;
-
+    ${({ isWelcomeRoute }) => isWelcomeRoute && "margin-top: 0;"}
+    ${({ isWelcomeRoute }) => isWelcomeRoute && "margin-left: 0;"}
     @media screen and (max-width: 1300px) {
       margin: 0;
     }

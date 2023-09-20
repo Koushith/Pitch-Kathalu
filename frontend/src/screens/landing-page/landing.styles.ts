@@ -13,6 +13,7 @@ const CourbFont = css`
 
 export const LandingPageContainer = styled.div`
   font-family: "Courier Prime", monospace;
+  color: #0c090a;
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
   background-size: cover; /* Full content coverage */
