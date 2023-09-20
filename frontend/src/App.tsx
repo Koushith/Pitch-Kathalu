@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -21,6 +21,9 @@ const AppContainer = styled.div`
     display: flex;
     gap: 2rem;
     padding: 1rem;
+    /* Set padding to 0 for the "/welcome" route */
+
+    ${({ isWelcomeRoute }) => isWelcomeRoute && "padding: 0;"}
     .sidebar {
       @media screen and (max-width: 1100px) {
         display: none; /* Hide .main on mobile and tablet views */
@@ -40,38 +43,32 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  // const user = useSelector((state) => state.auth.userInfo);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate("/");
-      } else {
-        // Handle the case when the user is not authenticated (optional)
-      }
-    });
+  // Determine if the current route is "/welcome"
+  const isWelcomeRoute = pathname === "/welcome";
 
-    // Clean up the subscription when the component unmounts
-    return () => {
-      unsubscribe();
-    };
-  }, [navigate]);
+  // Other code...
 
   return (
-    <AppContainer>
-      <div className="top-nav">
-        <TopBar />
-      </div>
+    <AppContainer isWelcomeRoute={isWelcomeRoute}>
+      {/* Render the top navigation bar only if the route is not "/welcome" */}
+      {!isWelcomeRoute && (
+        <div className="top-nav">
+          <TopBar />
+        </div>
+      )}
 
       <div className="main">
-        {pathname !== "/auth" && (
+        {/* Render the sidebar only if the route is not "/welcome" */}
+        {!isWelcomeRoute && (
           <div className={`sidebar hidden sm:block md:block`}>
             <SideBar />
           </div>
         )}
-        <div className="main-content ">
+
+        <div className="main-content">
           <Outlet />
         </div>
       </div>

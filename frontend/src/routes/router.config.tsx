@@ -5,6 +5,7 @@ import {
   AuthScreen,
   DashboardScreen,
   HomeScreen,
+  LandingPage,
   ProfileScreen,
   UploadScriptScreen,
   UserDetailsScreen,
@@ -77,6 +78,11 @@ export const routerConfig = createBrowserRouter([
             <UserDetailsScreen />
           </Private>
         ),
+      },
+
+      {
+        path: "/welcome",
+        element: <LandingPage />,
       },
     ],
   },

@@ -1,3 +1,7 @@
+import { LandingPageContainer } from "./landing.styles";
+import "./landing.styles";
 export const LandingPage = () => {
-  return <>landing page</>;
+  return (
+    <LandingPageContainer className="test">landing page</LandingPageContainer>
+  );
 };
