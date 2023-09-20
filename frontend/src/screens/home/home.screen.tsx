@@ -14,6 +14,7 @@ export const HomeScreen = () => {
   const onOpenHandler = (response) => {
     alert("Payments Modal is Opened");
     alert(JSON.stringify(response));
+    console.log("payment model res", response);
   };
 
   const onCloseHandler = () => {
@@ -45,7 +46,6 @@ export const HomeScreen = () => {
     });
   };
 
-  console.log("instamojo----", Instamojo);
   useEffect(() => {
     // Configure Handlers
 
@@ -60,6 +60,7 @@ export const HomeScreen = () => {
   }, []);
 
   const onButtonClick = () => {
+    console.log("upload cliced");
     Instamojo.open("https://www.instamojo.com/@sampad");
   };
 
@@ -75,7 +76,11 @@ export const HomeScreen = () => {
     <HomeContainer className="">
       {/* <h1 className="font-semibold leading-none mt-4 tracking-tight">Home</h1> */}
       <div className="flex gap-8 items-start mt-4 justify-start lg:w-1/2">
-        <div style={{ width: "150px" }} className="bg-background">
+        <div
+          style={{ width: "150px" }}
+          className="bg-background"
+          onClick={onButtonClick}
+        >
           <label
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-between rounded-md border-2 border-muted cursor-pointer bg-background p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&amp;:has([data-state=checked])]:border-primary"
             htmlFor="card"
@@ -89,7 +94,7 @@ export const HomeScreen = () => {
         <div
           style={{ width: "150px" }}
           className="bg-background"
-          onClick={navigateToUpload}
+          onClick={() => navigate("/profile")}
         >
           <label
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-between rounded-md border-2 border-muted cursor-pointer bg-background p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&amp;:has([data-state=checked])]:border-primary"

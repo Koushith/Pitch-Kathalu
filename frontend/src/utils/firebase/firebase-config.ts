@@ -14,6 +14,8 @@ import {
   getAuth,
   signInWithPopup,
   signOut,
+  browserSessionPersistence,
+  setPersistence,
 } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -35,12 +37,22 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const googleProvider = new GoogleAuthProvider();
-const auth = getAuth();
+export const auth = getAuth(app);
 
 // optional
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
+
+//
+setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    // Session persistence successfully enabled
+    console.log("Session persistence enabled.");
+  })
+  .catch((error) => {
+    console.error("Error enabling session persistence: ", error);
+  });
 
 // authendicate user
 

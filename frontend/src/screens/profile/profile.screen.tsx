@@ -11,7 +11,7 @@ import { UploadedScripts } from "../../components/uploaded-scripts/uploaded-scri
 
 export const ProfileScreen = () => {
   const user = useSelector((state) => state.auth.userInfo);
-  console.log(user.uid);
+
   const uid = user.uid;
 
   const { data, isLoading } = useFetchProfileByIdQuery(uid, {

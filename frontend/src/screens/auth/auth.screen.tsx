@@ -32,7 +32,7 @@ export const AuthScreen = () => {
   const [login, { isLoading }] = useLoginMutation();
 
   const loginHandler = async () => {
-    let { user } = await signupWithGoogle();
+    const { user } = await signupWithGoogle();
     console.log("user,", user);
     dispatch(setCredientials({ ...user }));
     const { displayName, email, photoURL, uid } = user;
