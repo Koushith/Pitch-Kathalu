@@ -8,14 +8,17 @@ const socialData = [
   {
     name: "Youtube",
     icon: YoutubeIcon,
+    link: "https://www.youtube.com/watch?v=T3KCKOSi-hA",
   },
   {
     name: "Instagram",
     icon: InstagramIcon,
+    link: "https://www.youtube.com/watch?v=T3KCKOSi-hA",
   },
   {
     name: "Twitter",
     icon: TwitterIcon,
+    link: "https://www.twitter.com/koushithAmin",
   },
 ];
 
@@ -26,7 +29,12 @@ export const SocialSection = () => {
 
       <div className="social-links">
         {socialData.map((d, index) => (
-          <img key={index} src={d.icon} alt={d.name} />
+          <img
+            key={index}
+            src={d.icon}
+            alt={d.name}
+            onClick={() => window.open(`${d.link}`, "_blank")}
+          />
         ))}
       </div>
     </SocialContainer>
