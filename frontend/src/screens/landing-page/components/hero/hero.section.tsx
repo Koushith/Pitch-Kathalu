@@ -127,4 +127,15 @@ export const HeroContainer = styled.section`
       border: 1px solid #464646;
     }
   }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 544px) {
+    .menu {
+      background-color: red;
+      display: none;
+    }
+  }
 `;

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Heading } from "../primitives/heading/heading.component";
+import { useNavigate } from "react-router-dom";
 
 export const ChallangeSection = () => {
+  const navigate = useNavigate();
   return (
     <ChallangeContainer>
       <div className="challenge-container">
@@ -15,7 +17,7 @@ export const ChallangeSection = () => {
           <p>Send in your ideas and if it's actually good,</p>
           <p>we will produce it this time.</p>
           <p>Are you talanted enough to make us eat our words?</p>
-          <button>Submit your pitch</button>
+          <button onClick={() => navigate("/auth")}>Submit your pitch</button>
         </div>
       </div>
     </ChallangeContainer>
@@ -58,6 +60,16 @@ export const ChallangeContainer = styled.section`
         -moz-box-shadow: -15px 14px 11px -1px rgba(0, 0, 0, 0.75);
         box-shadow: -15px 14px 11px -1px rgba(0, 0, 0, 0.75);
       }
+    }
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 544px) {
+    .left {
+      display: none;
     }
   }
 `;
