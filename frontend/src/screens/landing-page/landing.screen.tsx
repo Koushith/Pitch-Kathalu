@@ -11,7 +11,7 @@ export const LandingPage = () => {
   return (
     <LandingPageContainer>
       <HeroSection />
-      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0.1rem" }}>
         <ChallangeSection />
         <VideoSection />
         <FAQSection />

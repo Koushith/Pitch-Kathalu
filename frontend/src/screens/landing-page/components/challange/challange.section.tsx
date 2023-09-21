@@ -68,6 +68,7 @@ export const ChallangeContainer = styled.section`
   /**************************/
 
   @media (max-width: 544px) {
+    padding: 1rem;
     .left {
       display: none;
     }
