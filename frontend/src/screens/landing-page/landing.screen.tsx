@@ -10,11 +10,13 @@ export const LandingPage = () => {
   return (
     <LandingPageContainer>
       <HeroSection />
-      <ChallangeSection />
-      <VideoSection />
-      <FAQSection />
-      <SocialSection />
-      <FooterSection />
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+        <ChallangeSection />
+        <VideoSection />
+        <FAQSection />
+        <SocialSection />
+        <FooterSection />
+      </div>
     </LandingPageContainer>
   );
 };

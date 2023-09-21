@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { Heading } from "../primitives/heading/heading.component";
+import Thumbnail01 from "../../assets/Backgound/thumbnail-1.jpg";
+import Thumbnail02 from "../../assets/Backgound/thumbnail-2.jpg";
+import Thumbnail03 from "../../assets/Backgound/thumbnail-3.jpg";
 
 export const VideoSection = () => {
   return (
@@ -7,9 +10,9 @@ export const VideoSection = () => {
       <Heading text="Videos" className="heading" />
       <p>Take a look at them</p>
       <div className="video-list">
-        <div className="video-thumbnail"></div>
-        <div className="video-thumbnail"></div>
-        <div className="video-thumbnail"></div>
+        <img src={Thumbnail01} className="video-thumbnail" alt="thumbnail" />
+        <img src={Thumbnail02} className="video-thumbnail" alt="thumbnail" />
+        <img src={Thumbnail03} className="video-thumbnail" alt="thumbnail" />
       </div>
     </VideoContainer>
   );
@@ -34,10 +37,12 @@ export const VideoContainer = styled.section`
     margin-bottom: 4rem;
     gap: 2rem;
     .video-thumbnail {
-      width: 300px;
-      height: 150px;
+      width: 350px;
+      height: 200px;
+      object-fit: cover;
       border-radius: 10px;
       background: black;
+      cursor: pointer;
     }
   }
 `;
