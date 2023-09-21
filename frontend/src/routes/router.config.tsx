@@ -38,6 +38,10 @@ export const routerConfig = createBrowserRouter([
         path: "/auth",
         element: <AuthScreen />, // Wrap with Private component
       },
+      {
+        path: "/welcome",
+        element: <LandingPage />,
+      },
 
       {
         path: "/profile",
