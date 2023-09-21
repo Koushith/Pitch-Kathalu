@@ -25,11 +25,7 @@ export const VideoSection = () => {
       <div className="video-list">
         <img
           src={Thumbnail01}
-          onClick={() =>
-            openYouTubeLink(
-              "https://youtu.be/T3KCKOSi-hA?list=PL2Cx294_Fvrb3ARlQMBidKlUGluLQ-o1A"
-            )
-          }
+          onClick={() => openYouTubeLink("https://youtu.be/T3KCKOSi-hA")}
           className="video-thumbnail"
           alt="thumbnail"
         />

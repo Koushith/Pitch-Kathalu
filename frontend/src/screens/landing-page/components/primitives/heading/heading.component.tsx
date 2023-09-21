@@ -31,4 +31,14 @@ export const HeadingContainer = styled.div`
     top: 45px;
     font-weight: bold;
   }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 544px) {
+    p {
+      top: 28px;
+    }
+  }
 `;

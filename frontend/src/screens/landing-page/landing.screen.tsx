@@ -1,4 +1,5 @@
 import { ChallangeSection } from "./components/challange/challange.section";
+import { ContactSection } from "./components/contact/contact.component";
 import { FAQSection } from "./components/faq/faq.section";
 import { FooterSection } from "./components/footer/footer.section";
 import { HeroSection } from "./components/hero/hero.section";
@@ -15,6 +16,7 @@ export const LandingPage = () => {
         <ChallangeSection />
         <VideoSection />
         <FAQSection />
+        <ContactSection />
         <SocialSection />
         <FooterSection />
       </div>

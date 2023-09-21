@@ -2,10 +2,11 @@ import styled from "styled-components";
 import Hero from "../../assets/Backgound/hero.png";
 import { Modal } from "../model/mode.component";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const navigate = useNavigate();
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -80,10 +81,16 @@ export const HeroSection = () => {
         </div>
       </Modal>
       <div className="menu">
-        <button className="btn" onClick={openModal}>
+        <button className="btn" onClick={() => navigate("/auth")}>
           Submit
         </button>
-        <button className="btn" onClick={openModal}>
+        <button
+          className="btn"
+          onClick={() => {
+            const email = "pitchkathalu@gmail.com";
+            window.location.href = `mailto:${email}`;
+          }}
+        >
           Contact
         </button>
         <button className="btn" onClick={openModal}>
@@ -134,7 +141,8 @@ export const HeroContainer = styled.section`
 
   @media (max-width: 544px) {
     .menu {
-      background-color: red;
+      /* background-color: red;
+      gap: 0.8rem; */
       display: none;
     }
   }
