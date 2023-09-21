@@ -34,7 +34,7 @@ export const SocialSection = () => {
 };
 
 export const SocialContainer = styled.div`
-  border-top: 1px solid #0c090a;
+  border-top: 1px solid #454545;
   /* border-bottom: 1px solid #0c090a; */
   margin-bottom: 4rem;
   .social {

@@ -6,6 +6,7 @@ import { SocialSection } from "./components/social-media/social.section";
 import { VideoSection } from "./components/video/video.section";
 import { LandingPageContainer } from "./landing.styles";
 import "./landing.styles";
+
 export const LandingPage = () => {
   return (
     <LandingPageContainer>

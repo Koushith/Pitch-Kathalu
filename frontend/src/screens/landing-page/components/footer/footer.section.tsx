@@ -15,8 +15,8 @@ export const FooterSection = () => {
 };
 
 export const FoterContainer = styled.div`
-  border-top: 1px solid #0c090a;
-  border-bottom: 1px solid #0c090a;
+  border-top: 1px solid #464646;
+  border-bottom: 1px solid #464646;
 
   .end-container {
     margin-top: 2rem;

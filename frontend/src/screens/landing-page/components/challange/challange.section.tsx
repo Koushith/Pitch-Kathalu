@@ -53,6 +53,7 @@ export const ChallangeContainer = styled.section`
         padding: 0.6rem 2rem;
         border-radius: 50px;
         margin-top: 2rem;
+        border: 1px solid #464646;
         -webkit-box-shadow: -15px 14px 11px -1px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: -15px 14px 11px -1px rgba(0, 0, 0, 0.75);
         box-shadow: -15px 14px 11px -1px rgba(0, 0, 0, 0.75);

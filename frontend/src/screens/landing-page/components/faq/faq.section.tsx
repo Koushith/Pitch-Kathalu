@@ -39,7 +39,7 @@ export const FAQSection = () => {
 };
 
 export const FaqContainer = styled.section`
-  border-top: 1px solid #0c090a;
+  border-top: 1px solid #464646;
   .heading {
     margin-top: 2rem;
   }

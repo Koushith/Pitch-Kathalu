@@ -23,7 +23,7 @@ export const VideoContainer = styled.section`
     text-align: center;
   }
 
-  border-top: 1px solid #0c090a;
+  border-top: 1px solid #454545;
 
   .heading {
     margin-top: 2rem;
