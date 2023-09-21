@@ -21,9 +21,9 @@ export const routerConfig = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Private>
-            <HomeScreen />
-          </Private>
+          <>
+            <LandingPage />
+          </>
         ), // Wrap with Private component
       },
       {

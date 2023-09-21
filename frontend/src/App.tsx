@@ -22,7 +22,7 @@ const AppContainer = styled.div`
     gap: 2rem;
     padding: 1rem;
     /* Set padding to 0 for the "/welcome" route */
-
+    ${({ isRoot }) => isRoot && "padding: 0;"}
     ${({ isWelcomeRoute }) => isWelcomeRoute && "padding: 0;"}
     .sidebar {
       @media screen and (max-width: 1100px) {
@@ -37,6 +37,8 @@ const AppContainer = styled.div`
     margin-left: 100px;
     ${({ isWelcomeRoute }) => isWelcomeRoute && "margin-top: 0;"}
     ${({ isWelcomeRoute }) => isWelcomeRoute && "margin-left: 0;"}
+    ${({ isRoot }) => isRoot && "margin-top: 0;"}
+    ${({ isRoot }) => isRoot && "margin-left: 0;"}
     @media screen and (max-width: 1300px) {
       margin: 0;
     }
@@ -50,13 +52,14 @@ function App() {
   // Determine if the current route is "/welcome"
   const isWelcomeRoute = pathname === "/welcome";
   const isAuthRoute = pathname === "/auth";
+  const isRoot = pathname === "/";
 
   // Other code...
 
   return (
-    <AppContainer isWelcomeRoute={isWelcomeRoute}>
+    <AppContainer isWelcomeRoute={isWelcomeRoute} isRoot={isRoot}>
       {/* Render the top navigation bar only if the route is not "/welcome" */}
-      {!isWelcomeRoute && (
+      {!isWelcomeRoute && !isRoot && (
         <div className="top-nav">
           <TopBar />
         </div>
@@ -64,7 +67,7 @@ function App() {
 
       <div className="main">
         {/* Render the sidebar only if the route is not "/welcome" */}
-        {!isWelcomeRoute && !isAuthRoute && (
+        {!isWelcomeRoute && !isRoot && !isAuthRoute && (
           <div className={`sidebar hidden sm:block md:block`}>
             <SideBar />
           </div>
