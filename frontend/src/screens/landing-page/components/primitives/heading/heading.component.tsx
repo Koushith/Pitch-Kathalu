@@ -38,7 +38,7 @@ export const HeadingContainer = styled.div`
 
   @media (max-width: 544px) {
     p {
-      top: 28px;
+      top: 35px;
     }
   }
 `;
