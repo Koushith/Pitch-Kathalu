@@ -49,6 +49,7 @@ function App() {
 
   // Determine if the current route is "/welcome"
   const isWelcomeRoute = pathname === "/welcome";
+  const isAuthRoute = pathname === "/auth";
 
   // Other code...
 
@@ -63,7 +64,7 @@ function App() {
 
       <div className="main">
         {/* Render the sidebar only if the route is not "/welcome" */}
-        {!isWelcomeRoute && (
+        {!isWelcomeRoute && !isAuthRoute && (
           <div className={`sidebar hidden sm:block md:block`}>
             <SideBar />
           </div>

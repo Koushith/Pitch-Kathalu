@@ -79,11 +79,10 @@ export const routerConfig = createBrowserRouter([
           </Private>
         ),
       },
-
-      {
-        path: "/welcome",
-        element: <LandingPage />,
-      },
     ],
+  },
+  {
+    path: "/welcome",
+    element: <LandingPage />,
   },
 ]);
