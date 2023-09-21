@@ -45,14 +45,14 @@ googleProvider.setCustomParameters({
 });
 
 //
-setPersistence(auth, browserSessionPersistence)
-  .then(() => {
-    // Session persistence successfully enabled
-    console.log("Session persistence enabled.");
-  })
-  .catch((error) => {
-    console.error("Error enabling session persistence: ", error);
-  });
+// setPersistence(auth, browserSessionPersistence)
+//   .then(() => {
+//     // Session persistence successfully enabled
+//     console.log("Session persistence enabled.");
+//   })
+//   .catch((error) => {
+//     console.error("Error enabling session persistence: ", error);
+//   });
 
 // authendicate user
 
