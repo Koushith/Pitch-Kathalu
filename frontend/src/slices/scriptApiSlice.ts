@@ -1,18 +1,32 @@
-import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import apiSlice from "./apiSlice";
-import { SCRIPT_ENDPOINT } from "@/utils";
+import { SCRIPT_ENDPOINT } from '@/utils'
+
+import { createApi } from '@reduxjs/toolkit/dist/query/react'
+
+import apiSlice from './apiSlice'
 
 const scriptApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // upload Script TODO: - Handle payment part
     uploadScript: builder.mutation({
       query: (data) => {
-        console.log("Request Data:", data); // Log the request data
+        console.log('Request Data:', data) // Log the request data
         return {
           url: SCRIPT_ENDPOINT,
           body: data,
-          method: "POST",
-        };
+          method: 'POST',
+        }
+      },
+    }),
+
+    //Submit Script
+    submitScript: builder.mutation({
+      query: (data) => {
+        console.log('data from body', data)
+        return {
+          url: SCRIPT_ENDPOINT,
+          body: data,
+          method: 'POST',
+        }
       },
     }),
 
@@ -21,7 +35,7 @@ const scriptApiSlice = apiSlice.injectEndpoints({
     fetchAllScripts: builder.query({
       query: () => ({
         url: SCRIPT_ENDPOINT,
-        method: "GET",
+        method: 'GET',
       }),
     }),
 
@@ -31,12 +45,12 @@ const scriptApiSlice = apiSlice.injectEndpoints({
       query: (id) => {
         return {
           url: `${SCRIPT_ENDPOINT}/${id}`,
-          method: "GET",
-        };
+          method: 'GET',
+        }
       },
     }),
   }),
-});
+})
 
 // Rest of your code...
 
@@ -44,4 +58,5 @@ export const {
   useUploadScriptMutation,
   useFetchScriptUploadsQuery,
   useFetchAllScriptsQuery,
-} = scriptApiSlice;
+  useSubmitScriptMutation,
+} = scriptApiSlice

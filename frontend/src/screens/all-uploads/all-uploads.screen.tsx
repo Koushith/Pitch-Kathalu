@@ -11,7 +11,7 @@ export const AllUploadsScreen = () => {
   const navigate = useNavigate();
   return (
     <Card className="max-w-screen-lg bg-background">
-      <CardHeader>All Uploads</CardHeader>
+      <CardHeader>All Scripts</CardHeader>
       <div className="relative overflow-x-auto shadow-md rounded-xl bg-background p-6">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-background rounded-md border">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border">
@@ -51,7 +51,7 @@ export const AllUploadsScreen = () => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-background"
                     >
-                      {script.title}
+                      {script.logline}
                     </th>
                     <td className="px-6 py-4 bg-background cursor-pointer  ">
                       <Link

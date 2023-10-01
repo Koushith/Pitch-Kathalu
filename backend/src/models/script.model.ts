@@ -1,15 +1,22 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const ScriptSchema = new mongoose.Schema({
   scriptUrl: {
     type: String,
     // unique: true,
   },
-  title: String, // Add a title field to store the script's title
-
+  logline: {
+    type: String,
+  }, // Add a title field to store the script's title
+  synopsis: {
+    type: String,
+  },
+  personalConnect: {
+    type: String,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     // required: true,
   },
   userUid: {
@@ -29,16 +36,7 @@ const ScriptSchema = new mongoose.Schema({
     type: String,
   },
 
-  status: {
-    type: String,
-    enum: ["PENDING", "FAILED", "SUCCESS"], // Restrict values to these options
-    default: "PENDING",
-  },
+ 
+})
 
-  paymentId: {
-    type: String,
-    required: true,
-  },
-});
-
-export const Script = mongoose.model("Script", ScriptSchema);
+export const Script = mongoose.model('Script', ScriptSchema)

@@ -37,7 +37,7 @@ export const SideBar = () => {
             } h-9 px-4 py-2 w-full justify-start`}
           >
             <UploadIcon className="h-[1.2rem] w-[1.2rem]" />{" "}
-            <Link to="/uploads">All Uploads</Link>
+            <Link to="/uploads">All Scripts</Link>
           </li>
         )}
         {isAdmin && (

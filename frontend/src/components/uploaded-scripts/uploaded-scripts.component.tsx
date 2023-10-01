@@ -44,9 +44,9 @@ export const UploadedScripts = ({ allScripts, isScriptsLoading }: any) => {
                       </Avatar>
                       <div>
                         <p className="text-sm font-medium leading-none">
-                          {s.title}
+                          {s.logline}
                         </p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm mt-1 text-muted-foreground">
                           uploaded on {formatDate(s.uploadDate, "dd-mm-yy")}
                           /2023
                         </p>
@@ -57,6 +57,7 @@ export const UploadedScripts = ({ allScripts, isScriptsLoading }: any) => {
                         <Button
                           variant="outline"
                           className="ml-auto"
+                          //TODO: add script details page
                           onClick={() => window.open(s?.scriptUrl, "_blank")}
                         >
                           View{" "}

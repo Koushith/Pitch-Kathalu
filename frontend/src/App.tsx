@@ -57,9 +57,9 @@ function App() {
   // Other code...
 
   return (
-    <AppContainer isWelcomeRoute={isWelcomeRoute} isRoot={isRoot}>
+    <AppContainer isWelcomeRoute={isWelcomeRoute} >
       {/* Render the top navigation bar only if the route is not "/welcome" */}
-      {!isWelcomeRoute && !isRoot && (
+      {!isWelcomeRoute  && (
         <div className="top-nav">
           <TopBar />
         </div>
@@ -67,7 +67,7 @@ function App() {
 
       <div className="main">
         {/* Render the sidebar only if the route is not "/welcome" */}
-        {!isWelcomeRoute && !isRoot && !isAuthRoute && (
+        {!isWelcomeRoute  && !isAuthRoute && (
           <div className={`sidebar hidden sm:block md:block`}>
             <SideBar />
           </div>
