@@ -49,6 +49,15 @@ const scriptApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    //fetch one Script
+
+    fetchOneScript: builder.query({
+      query: (id: string) => ({
+        url: `${SCRIPT_ENDPOINT}/view-script/${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -59,4 +68,5 @@ export const {
   useFetchScriptUploadsQuery,
   useFetchAllScriptsQuery,
   useSubmitScriptMutation,
+  useFetchOneScriptQuery
 } = scriptApiSlice

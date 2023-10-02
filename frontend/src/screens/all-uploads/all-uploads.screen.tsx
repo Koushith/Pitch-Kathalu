@@ -95,7 +95,7 @@ export const AllUploadsScreen = () => {
                     <td className="px-6 py-4 bg-background">
                       <Button
                         variant={"outline"}
-                        onClick={() => window.open(script.scriptUrl, "_next")}
+                        onClick={() => navigate(`/view-script/${script._id}`)}
                         rel="noopener noreferrer"
                         className=""
                       >

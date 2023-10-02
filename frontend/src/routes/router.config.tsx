@@ -7,6 +7,7 @@ import {
   HomeScreen,
   LandingPage,
   ProfileScreen,
+  ScriptDetailsScreen,
   UploadScriptScreen,
   UserDetailsScreen,
   UsersScreen,
@@ -80,6 +81,14 @@ export const routerConfig = createBrowserRouter([
         element: (
           <Private>
             <UserDetailsScreen />
+          </Private>
+        ),
+      },
+      {
+        path: "/view-script/:scriptId",
+        element: (
+          <Private>
+            <ScriptDetailsScreen />
           </Private>
         ),
       },

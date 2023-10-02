@@ -14,3 +14,5 @@ export * from "./all-uploads/all-uploads.screen";
 export * from "./upload-script/upload-script.screen";
 
 export * from "./landing-page/landing.screen";
+
+export * from './script-details/script-details'

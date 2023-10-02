@@ -4,8 +4,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/utils/format-date";
 import { Avatar } from "@radix-ui/react-avatar";
 import { FileTextIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const UploadedScripts = ({ allScripts, isScriptsLoading }: any) => {
+  console.log("all scripts", allScripts)
+  const navigate = useNavigate()
   return (
     <div className="flex ">
       <Card className="bg-background  w-full  ">
@@ -58,7 +61,7 @@ export const UploadedScripts = ({ allScripts, isScriptsLoading }: any) => {
                           variant="outline"
                           className="ml-auto"
                           //TODO: add script details page
-                          onClick={() => window.open(s?.scriptUrl, "_blank")}
+                          onClick={() => navigate(`/view-script/${s._id}`)}
                         >
                           View{" "}
                           {/* <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" /> */}
