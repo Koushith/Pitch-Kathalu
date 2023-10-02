@@ -1,4 +1,4 @@
-import { SCRIPT_ENDPOINT } from '@/utils'
+import { BACKEND_BASE_URL, SCRIPT_ENDPOINT } from '@/utils'
 
 import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
@@ -58,15 +58,41 @@ const scriptApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    // like Script
+    likeScript: builder.mutation({
+      query: (id) => ({
+        url: `${SCRIPT_ENDPOINT}/like`,
+        body: id,
+        method: 'POST',
+      }),
+    }),
+
+    // view all liked
+    fetAllLiked: builder.query({
+      query: () => ({
+        url: `${SCRIPT_ENDPOINT}/like/all-liked`,
+        method: 'GET',
+      }),
+    }),
+
+    // remove from liked list
+    deleteLiked: builder.mutation({
+      query: (id) => ({
+        url: `${SCRIPT_ENDPOINT}/liked/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
-
-// Rest of your code...
 
 export const {
   useUploadScriptMutation,
   useFetchScriptUploadsQuery,
   useFetchAllScriptsQuery,
   useSubmitScriptMutation,
-  useFetchOneScriptQuery
+  useFetchOneScriptQuery,
+  useDeleteLikedMutation,
+  useFetAllLikedQuery,
+  useLikeScriptMutation,
 } = scriptApiSlice

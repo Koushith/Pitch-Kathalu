@@ -1,17 +1,42 @@
-import { useFetchOneScriptQuery } from "@/slices/scriptApiSlice";
-import { useParams } from "react-router-dom";
+import { Button } from '@/components/ui/button'
+import { useIsAdmin } from '@/hooks'
+import {
+  useFetchOneScriptQuery,
+  useLikeScriptMutation,
+} from '@/slices/scriptApiSlice'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 export const ScriptDetailsScreen = () => {
-  const { scriptId } = useParams();
+  const [liked, setLiked] = useState(false)
 
-  const { data, isLoading, isSuccess } = useFetchOneScriptQuery(scriptId as string);
+  const { scriptId } = useParams()
+  const isAdmin = useIsAdmin()
+  const { data, isLoading, isSuccess } = useFetchOneScriptQuery(
+    scriptId as string
+  )
+
+  const [likeScript, { isLoading: isLikeLoading }] = useLikeScriptMutation()
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>Loading...</p>
   }
 
   if (!isSuccess || !data) {
-    return <p>Error loading script details.</p>;
+    return <p>Error loading script details.</p>
+  }
+
+  const likeHandler = async (id: string) => {
+    try {
+      const res = await likeScript({ scriptId: id }).unwrap()
+
+      if (res.isSuccess) {
+        setLiked(true)
+      }
+    } catch (error) {
+      console.log('somehing went wrong', error)
+    }
   }
 
   const {
@@ -22,7 +47,7 @@ export const ScriptDetailsScreen = () => {
     synopsis,
     uploadDate,
     userName,
-  } = data.script;
+  } = data.script
 
   return (
     <div className="max-w-3xl mx-auto p-4">
@@ -43,6 +68,10 @@ export const ScriptDetailsScreen = () => {
       <p className="text-lg mt-2">{synopsis}</p>
       <h2 className="text-xl font-semibold mt-4">Personal Connect</h2>
       <p className="text-lg mt-2">{personalConnect}</p>
+
+      {!liked && isAdmin && (
+        <Button onClick={() => likeHandler(scriptId as string)}>Like</Button>
+      )}
     </div>
-  );
-};
+  )
+}

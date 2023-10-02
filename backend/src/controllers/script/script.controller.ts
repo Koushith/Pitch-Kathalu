@@ -80,11 +80,11 @@ export const getOneScript = asyncHandler(
   async (req: Request, res: Response) => {
     const { scriptId } = req.params
 
-    console.log("script id", scriptId)
+    console.log('script id', scriptId)
 
     const script = await Script.findById(scriptId)
 
-    console.log("script-----", script)
+    console.log('script-----', script)
 
     if (script) {
       res.status(200).json({
@@ -97,72 +97,72 @@ export const getOneScript = asyncHandler(
   }
 )
 
-
 // add to liked script
-export const addLikedScript = async (req:Request, res:Response) => {
-  const { scriptId } = req.body; 
-
+export const addLikedScript = async (req: Request, res: Response) => {
+  const { scriptId } = req.body
+  console.log('like script route', scriptId)
   try {
     // Check if the script with the given ID exists
-    const script = await Script.findById(scriptId).exec();
-
+    const script = await Script.findById(scriptId).exec()
+    console.log('exist:?', script)
     if (!script) {
-      return res.status(404).json({ error: 'Script not found' });
+      return res.status(404).json({ error: 'Script not found' })
     }
 
     // Check if the liked script already exists for the given user and script
     const existingLikedScript = await LikedScript.findOne({
       script: scriptId,
-    
-    }).exec();
+    }).exec()
 
     if (existingLikedScript) {
-      return res.status(400).json({ error: 'Liked script already exists' });
+      return res.status(400).json({ error: 'Liked script already exists' })
     }
 
     // Create a new liked script
     const newLikedScript = new LikedScript({
       script: scriptId,
-    });
+    })
 
-    // Save the new liked script to the database
-    await newLikedScript.save();
+    // Save the new liked script
+    await newLikedScript.save()
 
-    res.status(201).json(newLikedScript);
+    res.status(201).json({
+      isSuccess: true,
+      message: 'Liked Successfully',
+      newLikedScript,
+    })
   } catch (error) {
-    res.status(500).json({ error: 'Error adding liked script' });
+    res.status(500).json({ error: 'Error adding liked script' })
   }
-};
-
+}
 
 // get all liked script
 
-export const getAllLikedScripts = async (req:Request, res:Response) => {
+export const getAllLikedScripts = async (req: Request, res: Response) => {
   try {
-    const likedScripts = await LikedScript.find()
-      .populate('script')
-      .exec();
+    console.log('fetch all liked scripts- was here')
+    const likedScripts = await LikedScript.find().populate('script').exec()
 
-    res.json(likedScripts);
+    res.json(likedScripts)
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching liked scripts' });
+    res.status(500).json({ error: 'Error fetching liked scripts' })
   }
-};
+}
 
 // delete liked script
 
-export const deleteLikedScript = async (req:Request, res:Response) => {
-  const likedScriptId = req.params.id; // Get the ID from the request params
-
+export const deleteLikedScript = async (req: Request, res: Response) => {
+  const { scriptId } = req.params // Get the ID from the request params
+  console.log('delete liked route', scriptId)
   try {
-    const deletedScript = await LikedScript.findByIdAndRemove(likedScriptId).exec();
+    const deletedScript = await LikedScript.findByIdAndRemove(scriptId).exec()
 
     if (!deletedScript) {
-      return res.status(404).json({ error: 'Liked script not found' });
+      return res.status(404).json({ error: 'Liked script not found' })
     }
 
-    res.json({ message: 'Liked script deleted successfully' });
+    res.json({ isSuccess: true, message: 'Liked script deleted successfully' })
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting liked script' });
+    res.status(500).json({ error: 'Error deleting liked script' })
   }
-};
+}

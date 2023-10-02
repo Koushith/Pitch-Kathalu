@@ -1,26 +1,27 @@
-import App from "@/App";
-import { Private } from "@/components";
+import App from '@/App'
+import { Private } from '@/components'
 import {
   AllUploadsScreen,
   AuthScreen,
   DashboardScreen,
   HomeScreen,
   LandingPage,
+  LikedScriptsScreens,
   ProfileScreen,
   ScriptDetailsScreen,
   UploadScriptScreen,
   UserDetailsScreen,
   UsersScreen,
-} from "@/screens";
-import { createBrowserRouter } from "react-router-dom";
+} from '@/screens'
+import { createBrowserRouter } from 'react-router-dom'
 
 export const routerConfig = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: (
           <Private>
             <HomeScreen />
@@ -28,7 +29,7 @@ export const routerConfig = createBrowserRouter([
         ), // Wrap with Private component
       },
       {
-        path: "/dashboard",
+        path: '/dashboard',
         element: (
           <Private>
             <DashboardScreen />
@@ -36,16 +37,16 @@ export const routerConfig = createBrowserRouter([
         ), // Wrap with Private component
       },
       {
-        path: "/auth",
+        path: '/auth',
         element: <AuthScreen />, // Wrap with Private component
       },
       {
-        path: "/welcome",
+        path: '/welcome',
         element: <LandingPage />,
       },
 
       {
-        path: "/profile",
+        path: '/profile',
         element: (
           <Private>
             <ProfileScreen />
@@ -53,7 +54,7 @@ export const routerConfig = createBrowserRouter([
         ),
       },
       {
-        path: "/uploads",
+        path: '/uploads',
         element: (
           <Private>
             <AllUploadsScreen />
@@ -61,7 +62,7 @@ export const routerConfig = createBrowserRouter([
         ),
       },
       {
-        path: "/upload-script",
+        path: '/upload-script',
         element: (
           <Private>
             <UploadScriptScreen />
@@ -69,7 +70,7 @@ export const routerConfig = createBrowserRouter([
         ),
       },
       {
-        path: "/users",
+        path: '/users',
         element: (
           <Private>
             <UsersScreen />
@@ -77,7 +78,7 @@ export const routerConfig = createBrowserRouter([
         ),
       },
       {
-        path: "/user/:id",
+        path: '/user/:id',
         element: (
           <Private>
             <UserDetailsScreen />
@@ -85,17 +86,25 @@ export const routerConfig = createBrowserRouter([
         ),
       },
       {
-        path: "/view-script/:scriptId",
+        path: '/view-script/:scriptId',
         element: (
           <Private>
             <ScriptDetailsScreen />
           </Private>
         ),
       },
+      {
+        path: '/liked-scripts',
+        element: (
+          <Private>
+            <LikedScriptsScreens />
+          </Private>
+        ),
+      },
     ],
   },
   {
-    path: "/welcome",
+    path: '/welcome',
     element: <LandingPage />,
   },
-]);
+])

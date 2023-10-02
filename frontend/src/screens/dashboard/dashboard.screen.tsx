@@ -4,26 +4,38 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
-} from "@/components/ui/card";
-import { RecentSignups } from "./recent-signup.component";
-import { RecentUploads } from "./recent-uploads";
-import { useFetchAllScriptsQuery } from "@/slices/scriptApiSlice";
-import { useFetchAllUsersQuery } from "@/slices/userApiSlice";
+} from '@/components/ui/card'
+import { RecentSignups } from './recent-signup.component'
+import { RecentUploads } from './recent-uploads'
+import {
+  useFetAllLikedQuery,
+  useFetchAllScriptsQuery,
+} from '@/slices/scriptApiSlice'
+import { useFetchAllUsersQuery } from '@/slices/userApiSlice'
+import { Button } from '@/components/ui/button'
+import { useNavigate } from 'react-router-dom'
 
 export const DashboardScreen = () => {
-  const { data, isLoading } = useFetchAllScriptsQuery("", {
+  const { data, isLoading } = useFetchAllScriptsQuery('', {
     refetchOnMountOrArgChange: true,
-  });
+  })
 
   const {
     data: users,
     isLoading: isUserLoading,
     refetch: refetchUsers,
-  } = useFetchAllUsersQuery("", {
+  } = useFetchAllUsersQuery('', {
     refetchOnMountOrArgChange: true,
-  });
+  })
+  const { data: liked } = useFetAllLikedQuery('', {
+    refetchOnMountOrArgChange: true,
+  })
 
-  console.log("users, ", users);
+  const navigate = useNavigate()
+
+  const likedCount = liked ? liked.length : 0
+  const usersCount = users?.data?.length || 0
+  const allScriptsCount = data?.allScripts?.length || 0
 
   return (
     <>
@@ -33,9 +45,7 @@ export const DashboardScreen = () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3  max-w-screen-lg">
         <Card className="bg-background">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Earnings
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Shortlisted</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -54,12 +64,7 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {(data?.allScripts.length * 200).toLocaleString("en-IN", {
-                style: "currency",
-                currency: "INR",
-              })}
-            </div>
+            <div className="text-2xl font-bold">{likedCount}</div>
             {/* <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p> */}
@@ -84,7 +89,7 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{users?.data?.length}</div>
+            <div className="text-2xl font-bold">{usersCount}</div>
             {/* <p className="text-xs text-muted-foreground">
               +180.1% from last month
             </p> */}
@@ -108,7 +113,7 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data?.allScripts?.length}</div>
+            <div className="text-2xl font-bold">{allScriptsCount}</div>
             {/* <p className="text-xs text-muted-foreground">
               +19% from last month
             </p> */}
@@ -140,9 +145,12 @@ export const DashboardScreen = () => {
           </CardHeader>
           <CardContent>
             <RecentSignups users={users?.data} />
+            <Button className="w-full mt-4" onClick={() => navigate('/users')}>
+              View More
+            </Button>
           </CardContent>
         </Card>
       </div>
     </>
-  );
-};
+  )
+}
