@@ -39,4 +39,13 @@ const ScriptSchema = new mongoose.Schema({
  
 })
 
+
+const LikedScriptSchema = new mongoose.Schema({
+  script: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Script',
+  }
+});
+
+export const LikedScript = mongoose.model('LikedScript', LikedScriptSchema);
 export const Script = mongoose.model('Script', ScriptSchema)
