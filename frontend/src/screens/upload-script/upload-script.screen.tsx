@@ -23,7 +23,7 @@ export const UploadScriptScreen = () => {
   const [submitScript] = useSubmitScriptMutation()
 
   const maxLoglineCharacters = 100 // Define the maximum character limit for logline
-  const maxSynopsisCharacters = 500 // Define the maximum character limit for synopsis
+  const maxSynopsisCharacters = 350 // Define the maximum character limit for synopsis
   const maxPersonalConnectCharacters = 150 // Define the maximum character limit for personalConnect
 
   // Character count state variables
