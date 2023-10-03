@@ -20,7 +20,7 @@ export const UploadScriptScreen = () => {
   const [personalConnectValid, setPersonalConnectValid] = useState(false)
   const [phoneNumberValid, setPhoneNumberValid] = useState(false)
   const [errors, setErrors] = useState('')
-
+  const [disabled, setDisabled] = useState(false)
   const { mongoUserId, uid, displayName, email } = useSelector(
     (state) => state?.auth.userInfo
   )
@@ -28,73 +28,66 @@ export const UploadScriptScreen = () => {
   const navigate = useNavigate()
 
   // Validation functions
-  const validateLogline = () => {
-    setLoglineValid(logline.length <= maxLoglineCharacters)
-  }
+  // const validateLogline = () => {
+  //   setLoglineValid(logline !== '')
+  // }
 
-  const validateSynopsis = () => {
-    setSynopsisValid(synopsis.length <= maxSynopsisCharacters)
-  }
+  // const validateSynopsis = () => {
+  //   setSynopsisValid(synopsis !== '')
+  // }
 
-  const validatePersonalConnect = () => {
-    setPersonalConnectValid(
-      personalConnect.length <= maxPersonalConnectCharacters
-    )
-  }
+  // const validatePersonalConnect = () => {
+  //   setPersonalConnectValid(personalConnect !== '')
+  // }
 
-  const validatePhoneNumber = () => {
-    // You can add validation logic for phone number here
-    setPhoneNumberValid(phoneNumber.length > 8) // Example: Require at least 10 characters
-  }
+  // const validatePhoneNumber = () => {
+  //   // You can add validation logic for phone number here
+  //   setPhoneNumberValid(phoneNumber.length > 8) // Example: Require at least 10 characters
+  // }
 
   // Update character counts and validate fields as the user types
   const handleLoglineChange = (value) => {
     setLogLine(value)
     setLoglineValid(true) // Assume it's valid as long as it's not over the limit
-    validateLogline()
   }
 
   const handleSynopsisChange = (value) => {
     setSynopsis(value)
     setSynopsisValid(true) // Assume it's valid as long as it's not over the limit
-    validateSynopsis()
   }
 
   const handlePersonalConnectChange = (value) => {
     setPersonalConnect(value)
     setPersonalConnectValid(true) // Assume it's valid as long as it's not over the limit
-    validatePersonalConnect()
   }
 
   const handlePhoneNumberChange = (value) => {
     setPhoneNumber(value)
     setPhoneNumberValid(true) // Assume it's valid as long as it meets the minimum requirement
-    validatePhoneNumber()
   }
 
   // Determine whether to disable the submit button
-  const isSubmitDisabled = () => {
-    return (
-      !loglineValid ||
-      !synopsisValid ||
-      !personalConnectValid ||
-      !phoneNumberValid ||
-      isLoading
-    )
-  }
 
   const maxLoglineCharacters = 50
   const maxSynopsisCharacters = 350
   const maxPersonalConnectCharacters = 150
   const submitScriptHandler = async () => {
     // Check if any of the fields are empty
-    if (!logline || !synopsis || !personalConnect || !phoneNumber) {
-      alert('Please fill out all fields.')
-      return // Don't proceed with submission
-    }
 
-    if (!isSubmitDisabled()) {
+    let isValid = false
+    if (
+      logline.length === 0 &&
+      synopsis.length === 0 &&
+      personalConnect.length === 0 &&
+      phoneNumber.length == 0
+    ) {
+      alert('Please fill out all fields.')
+      setDisabled(true)
+      isValid = false
+      return // Don't proceed with submission
+    } else {
       try {
+        setDisabled(false)
         const res = await submitScript({
           logline,
           synopsis,
@@ -239,9 +232,8 @@ export const UploadScriptScreen = () => {
         <Button
           variant="default"
           size="lg"
-          className={`mt-4 ${isSubmitDisabled() ? 'cursor-not-allowed' : ''}`}
+          className={`mt-4`}
           onClick={submitScriptHandler}
-          disabled={isSubmitDisabled()}
         >
           {isLoading && (
             <Loader2 className="h-[1.2rem] w-[1.2rem] mr-2 animate-spin" />
