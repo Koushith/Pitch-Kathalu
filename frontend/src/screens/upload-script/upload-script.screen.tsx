@@ -30,6 +30,7 @@ export const UploadScriptScreen = () => {
   const [loglineCharCount, setLoglineCharCount] = useState(0)
   const [synopsisCharCount, setSynopsisCharCount] = useState(0)
   const [personalConnectCharCount, setPersonalConnectCharCount] = useState(0)
+  const [phoneNumber, setPhoneNumber] = useState(0)
 
   const navigate = useNavigate()
   const submitScriptHandler = async () => {
@@ -42,6 +43,7 @@ export const UploadScriptScreen = () => {
         userUid: uid,
         userName: displayName,
         email: email,
+        phoneNumber: phoneNumber,
       }).unwrap()
 
       if (res.isSuccess) {
@@ -154,12 +156,7 @@ export const UploadScriptScreen = () => {
               {' '}
               Personal Connect
             </label>
-            {/* <Input
-              type="text"
-              className="mt-2"
-              value={personalConnect}
-              onChange={(e) => handlePersonalConnectChange(e.target.value)}
-            /> */}
+
             <Textarea
               placeholder="Type your message here."
               value={personalConnect}
@@ -178,6 +175,29 @@ export const UploadScriptScreen = () => {
             >
               Characters remaining:{' '}
               {maxPersonalConnectCharacters - personalConnectCharCount}
+            </p>
+          </div>
+
+          <div className="space-y-2 mt-6">
+            <label
+              htmlFor="title"
+              placeholder="Enter your Phone number"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {' '}
+              Phone Number
+            </label>
+
+            <Input
+              required
+              placeholder="Type your message here."
+              value={phoneNumber}
+              //@ts-ignore
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <p className="text-[0.8rem] text-muted-foreground">
+              Tell us why you want to tell this story (Max{' '}
+              {maxPersonalConnectCharacters} characters).
             </p>
           </div>
 

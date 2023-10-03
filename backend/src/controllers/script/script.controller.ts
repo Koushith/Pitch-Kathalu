@@ -10,8 +10,15 @@ import { User } from '../../models/user.model.js'
 
 export const uploadScript = async (req: Request, res: Response) => {
   try {
-    const { synopsis, userUid, userName, logline, personalConnect, email } =
-      req.body
+    const {
+      synopsis,
+      userUid,
+      userName,
+      logline,
+      personalConnect,
+      email,
+      phoneNumber,
+    } = req.body
     console.log('request was here')
     console.log({ synopsis, userUid, logline, personalConnect })
 
@@ -32,6 +39,7 @@ export const uploadScript = async (req: Request, res: Response) => {
       avatar: user?.avatar,
       personalConnect,
       synopsis,
+      phoneNumber,
     })
 
     if (script) {
