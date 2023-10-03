@@ -30,7 +30,7 @@ export const UploadScriptScreen = () => {
   const [loglineCharCount, setLoglineCharCount] = useState(0)
   const [synopsisCharCount, setSynopsisCharCount] = useState(0)
   const [personalConnectCharCount, setPersonalConnectCharCount] = useState(0)
-  const [phoneNumber, setPhoneNumber] = useState(0)
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const navigate = useNavigate()
   const submitScriptHandler = async () => {
@@ -43,7 +43,6 @@ export const UploadScriptScreen = () => {
         userUid: uid,
         userName: displayName,
         email: email,
-        phoneNumber: phoneNumber,
       }).unwrap()
 
       if (res.isSuccess) {
@@ -181,7 +180,6 @@ export const UploadScriptScreen = () => {
           <div className="space-y-2 mt-6">
             <label
               htmlFor="title"
-              placeholder="Enter your Phone number"
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               {' '}
@@ -190,9 +188,8 @@ export const UploadScriptScreen = () => {
 
             <Input
               required
-              placeholder="Type your message here."
+              placeholder="Enter your Phone Number"
               value={phoneNumber}
-              //@ts-ignore
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <p className="text-[0.8rem] text-muted-foreground">
