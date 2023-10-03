@@ -48,6 +48,7 @@ export const ScriptDetailsScreen = () => {
     synopsis,
     uploadDate,
     userName,
+    phoneNumber,
   } = data.script
 
   return (
@@ -60,7 +61,7 @@ export const ScriptDetailsScreen = () => {
         />
         <div>
           <p className="text-sm font-medium leading-none">
-            {userName} - {email}
+            {userName} - {email} - {phoneNumber}
           </p>
           <p className="text-sm text-muted-foreground">{uploadDate}</p>
         </div>

@@ -43,6 +43,7 @@ export const UploadScriptScreen = () => {
         userUid: uid,
         userName: displayName,
         email: email,
+        phoneNumber: phoneNumber,
       }).unwrap()
 
       if (res.isSuccess) {
@@ -188,6 +189,7 @@ export const UploadScriptScreen = () => {
 
             <Input
               required
+              type="tel"
               placeholder="Enter your Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}

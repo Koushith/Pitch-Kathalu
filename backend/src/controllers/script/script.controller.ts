@@ -20,7 +20,7 @@ export const uploadScript = async (req: Request, res: Response) => {
       phoneNumber,
     } = req.body
     console.log('request was here')
-    console.log({ synopsis, userUid, logline, personalConnect })
+    console.log({ synopsis, userUid, logline, personalConnect, phoneNumber })
 
     // Check if the user with the provided ID exists
     const user = await User.findOne({ uid: userUid })
