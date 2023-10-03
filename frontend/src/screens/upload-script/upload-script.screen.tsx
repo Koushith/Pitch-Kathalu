@@ -195,8 +195,7 @@ export const UploadScriptScreen = () => {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <p className="text-[0.8rem] text-muted-foreground">
-              Tell us why you want to tell this story (Max{' '}
-              {maxPersonalConnectCharacters} characters).
+              we will contact you if things goes well🚀
             </p>
           </div>
 
