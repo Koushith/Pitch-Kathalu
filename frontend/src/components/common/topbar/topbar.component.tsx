@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 
-import { signupWithGoogle } from "@/utils";
-import { ButtonIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavbarContainer } from "./topbar.styles";
+import { signupWithGoogle } from '@/utils'
+import { ButtonIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { NavbarContainer } from './topbar.styles'
 
 import {
   DropdownMenu,
@@ -13,49 +13,50 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useTheme } from "@/theme";
-import { LogOutIcon, Moon, Settings, Sun, User2Icon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+} from '@/components/ui/dropdown-menu'
+import { useTheme } from '@/theme'
+import { LogOutIcon, Moon, Settings, Sun, User2Icon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import {
   useLoginMutation,
   useFetchProfileByIdQuery,
-} from "@/slices/userApiSlice";
-import { setCredientials, logout } from "@/slices/userSlice";
+} from '@/slices/userApiSlice'
+import { setCredientials, logout } from '@/slices/userSlice'
+import { useIsAdmin } from '@/hooks'
 
 export const TopBar = () => {
-  const [login, { isLoading }] = useLoginMutation();
-  const { setTheme } = useTheme();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isAuthendicated, userInfo } = useSelector((state) => state.auth);
+  const [login, { isLoading }] = useLoginMutation()
+  const { setTheme } = useTheme()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { isAuthendicated, userInfo } = useSelector((state) => state.auth)
   const {
     data,
     isLoading: isUserIdLoading,
     refetch,
-  } = useFetchProfileByIdQuery(userInfo?.uid);
+  } = useFetchProfileByIdQuery(userInfo?.uid)
 
   const fetchMongoId = () => {
-    console.log("mongo-- isAdmin-", data?.data?.isAdmin);
-    dispatch(setCredientials({ isAdmin: data?.data?.isAdmin }));
-    console.log("is data there?", data?.data?._id);
-    const mongoId = data?.data?._id;
-    dispatch(setCredientials({ mongoUserId: mongoId }));
-  };
+    console.log('mongo-- isAdmin-', data?.data?.isAdmin)
+    dispatch(setCredientials({ isAdmin: data?.data?.isAdmin }))
+    console.log('is data there?', data?.data?._id)
+    const mongoId = data?.data?._id
+    dispatch(setCredientials({ mongoUserId: mongoId }))
+  }
 
   useEffect(() => {
     if (data) {
-      fetchMongoId();
+      fetchMongoId()
     }
-  }, [data]);
+  }, [data])
 
   //const mongoId = data?.data?._id;
   const loginHandler = async () => {
-    let { user } = await signupWithGoogle();
-    refetch();
-    dispatch(setCredientials({ ...user }));
+    const { user } = await signupWithGoogle()
+    refetch()
+    dispatch(setCredientials({ ...user }))
 
-    const { displayName, email, photoURL, uid } = user;
+    const { displayName, email, photoURL, uid } = user
     // here - it replaces whole -overrides
 
     const res = await login({
@@ -64,24 +65,24 @@ export const TopBar = () => {
       photoURL,
       uid,
       user,
-    }).unwrap();
-    console.log("res---", res);
-  };
+    }).unwrap()
+    console.log('res---', res)
+  }
 
   const logoutHandler = () => {
-    dispatch(logout(""));
-  };
-
+    dispatch(logout(''))
+  }
+  const isAdmin = useIsAdmin()
   return (
     <div className="border-b ">
       <div
         className="flex items-center justify-between p-4 mt-0 mb-0 ml-auto mr-auto "
-        style={{ maxWidth: "1600px" }}
+        style={{ maxWidth: '1600px' }}
       >
         <h1>Pitch Kathalu 📄</h1>
         <div className="flex">
           <div className="hidden md:block">
-            {" "}
+            {' '}
             {/* Hide on mobile */}
             {isAuthendicated ? (
               <Button
@@ -113,13 +114,32 @@ export const TopBar = () => {
               <DropdownMenuContent>
                 <DropdownMenuLabel>Menu</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => navigate("/")}>
+                {isAdmin && (
+                  <>
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      Dashboard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/uploads')}>
+                      All Scripts
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/users')}>
+                      Users
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => navigate('/liked-scripts')}
+                    >
+                      Shortlisted
+                    </DropdownMenuItem>
+                  </>
+                )}
+
+                <DropdownMenuItem onClick={() => navigate('/')}>
                   Home
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/profile")}>
+                <DropdownMenuItem onClick={() => navigate('/profile')}>
                   Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/users")}>
+                <DropdownMenuItem onClick={() => navigate('/users')}>
                   Users
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -135,14 +155,14 @@ export const TopBar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
+              <DropdownMenuItem onClick={() => setTheme('dark')}>
                 Dark
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("light")}>
+              <DropdownMenuItem onClick={() => setTheme('light')}>
                 Light
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => setTheme("system")}>
+              <DropdownMenuItem onClick={() => setTheme('system')}>
                 System
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -150,5 +170,5 @@ export const TopBar = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
