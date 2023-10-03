@@ -44,7 +44,7 @@ export const UploadScriptScreen = () => {
 
   const validatePhoneNumber = () => {
     // You can add validation logic for phone number here
-    setPhoneNumberValid(phoneNumber.length >= 10) // Example: Require at least 10 characters
+    setPhoneNumberValid(phoneNumber.length > 8) // Example: Require at least 10 characters
   }
 
   // Update character counts and validate fields as the user types
