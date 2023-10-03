@@ -64,10 +64,11 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{likedCount}</div>
-            {/* <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p> */}
+            {likedCount > 0 ? (
+              <div className="text-2xl font-bold">{likedCount}</div>
+            ) : (
+              <p className="text-2xl font-bold">0</p>
+            )}
           </CardContent>
         </Card>
         <Card className="bg-background">
@@ -89,10 +90,11 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{usersCount}</div>
-            {/* <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p> */}
+            {usersCount > 0 ? (
+              <div className="text-2xl font-bold">{usersCount}</div>
+            ) : (
+              <p className="text-2xl font-bold">No users available</p>
+            )}
           </CardContent>
         </Card>
         <Card className="bg-background">
@@ -113,10 +115,11 @@ export const DashboardScreen = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{allScriptsCount}</div>
-            {/* <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p> */}
+            {allScriptsCount > 0 ? (
+              <div className="text-2xl font-bold">{allScriptsCount}</div>
+            ) : (
+              <p className="text-2xl font-bold">No scripts available</p>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -125,14 +128,20 @@ export const DashboardScreen = () => {
           <CardHeader>
             <CardTitle>Recently uploaded Scripts</CardTitle>
             <CardDescription>
-              Showing 5 of {data?.allScripts?.length} scripts
+              {data?.allScripts?.length > 0
+                ? `Showing 5 of ${data?.allScripts?.length} scripts`
+                : 'No scripts available'}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentUploads
-              allScripts={data?.allScripts}
-              isLoading={isLoading}
-            />
+            {data?.allScripts?.length > 0 ? (
+              <RecentUploads
+                allScripts={data?.allScripts}
+                isLoading={isLoading}
+              />
+            ) : (
+              <p>No scripts available</p>
+            )}
           </CardContent>
         </Card>
 
@@ -140,14 +149,25 @@ export const DashboardScreen = () => {
           <CardHeader>
             <CardTitle>Recent Signups</CardTitle>
             <CardDescription>
-              Showing 6 of {users?.data?.length} users
+              {users?.data?.length > 0
+                ? `Showing 6 of ${users?.data?.length} users`
+                : 'No users available'}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentSignups users={users?.data} />
-            <Button className="w-full mt-4" onClick={() => navigate('/users')}>
-              View More
-            </Button>
+            {users?.data?.length > 0 ? (
+              <RecentSignups users={users?.data} />
+            ) : (
+              <p>No users available</p>
+            )}
+            {users?.data?.length > 0 && (
+              <Button
+                className="w-full mt-4"
+                onClick={() => navigate('/users')}
+              >
+                View More
+              </Button>
+            )}
           </CardContent>
         </Card>
       </div>

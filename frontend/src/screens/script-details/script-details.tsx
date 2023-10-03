@@ -36,6 +36,7 @@ export const ScriptDetailsScreen = () => {
       }
     } catch (error) {
       console.log('somehing went wrong', error)
+      alert('Already Shortlisted', error)
     }
   }
 
@@ -58,19 +59,40 @@ export const ScriptDetailsScreen = () => {
           className="w-10 h-10 rounded-full mr-2"
         />
         <div>
-          <p className="text-gray-700 text-sm">
+          <p className="text-sm font-medium leading-none">
             {userName} - {email}
           </p>
-          <p className="text-gray-600 text-xs">{uploadDate}</p>
+          <p className="text-sm text-muted-foreground">{uploadDate}</p>
         </div>
       </div>
-      <h1 className="text-2xl font-semibold mt-4">{logline}</h1>
-      <p className="text-lg mt-2">{synopsis}</p>
-      <h2 className="text-xl font-semibold mt-4">Personal Connect</h2>
-      <p className="text-lg mt-2">{personalConnect}</p>
+      <div className="mt-10">
+        <div>
+          <h2 className="font-semibold leading-none tracking-tight">Logline</h2>
+          <p className="text-sm text-muted-foreground mt-4">{logline}</p>
+        </div>
+        <div className="mt-6">
+          <h2 className="font-semibold leading-none tracking-tight">
+            Synopsis
+          </h2>
+          <p className="text-sm text-muted-foreground mt-4">{synopsis}</p>
+        </div>
+        <div className="mt-6">
+          <h2 className="font-semibold leading-none tracking-tight ">
+            Personal Connect
+          </h2>
+          <p className="text-sm text-muted-foreground mt-4">
+            {personalConnect}
+          </p>
+        </div>
+      </div>
 
       {!liked && isAdmin && (
-        <Button onClick={() => likeHandler(scriptId as string)}>Like</Button>
+        <Button
+          className="mt-4"
+          onClick={() => likeHandler(scriptId as string)}
+        >
+          Shortlist
+        </Button>
       )}
     </div>
   )

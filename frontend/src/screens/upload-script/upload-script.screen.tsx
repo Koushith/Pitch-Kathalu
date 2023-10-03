@@ -24,7 +24,7 @@ export const UploadScriptScreen = () => {
 
   const maxLoglineCharacters = 100 // Define the maximum character limit for logline
   const maxSynopsisCharacters = 500 // Define the maximum character limit for synopsis
-  const maxPersonalConnectCharacters = 200 // Define the maximum character limit for personalConnect
+  const maxPersonalConnectCharacters = 150 // Define the maximum character limit for personalConnect
 
   // Character count state variables
   const [loglineCharCount, setLoglineCharCount] = useState(0)
@@ -91,41 +91,54 @@ export const UploadScriptScreen = () => {
         <h1 className="font-semibold leading-none tracking-tight">
           Upload Your Script 🚀
         </h1>
-        <div className="mt-6 w-1/2">
-          <div>
-            <label htmlFor="title"> Log Line</label>
+        <div className="mt-6 w-full md:w-1/2">
+          <div className="space-y-2">
+            <label
+              htmlFor="title"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {' '}
+              Log Line
+            </label>
             <Input
               type="text"
               className="mt-2"
               value={logline}
               onChange={(e) => handleLoglineChange(e.target.value)}
             />
-            <p className="">
+            <p className="text-[0.8rem] text-muted-foreground">
               One-sentence summary or description of a movie (Max{' '}
               {maxLoglineCharacters} characters).
             </p>
             <p
-              className={`text-${
+              className={`text-[0.8rem] text-muted-foreground text-${
                 loglineCharCount > maxLoglineCharacters ? 'red' : 'gray'
               } text-xs`}
             >
               Characters remaining: {maxLoglineCharacters - loglineCharCount}
             </p>
           </div>
-          <div>
-            <label htmlFor="title"> Synopsis</label>
+
+          <div className="space-y-2 mt-6">
+            <label
+              htmlFor="title"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {' '}
+              Synopsis
+            </label>
             <Textarea
               placeholder="Type your message here."
               value={synopsis}
               onChange={(e) => handleSynopsisChange(e.target.value)}
             />
             {/* <ReactQuill theme="snow" value={synopsis} onChange={handleSynopsisChange} /> */}
-            <p className="">
+            <p className="text-[0.8rem] text-muted-foreground">
               Write-up that describes the plot and world of your story (Max{' '}
               {maxSynopsisCharacters} characters).
             </p>
             <p
-              className={`text-${
+              className={`text-[0.8rem] text-muted-foreground text-${
                 synopsisCharCount > maxSynopsisCharacters ? 'red' : 'gray'
               } text-xs`}
             >
@@ -133,8 +146,14 @@ export const UploadScriptScreen = () => {
             </p>
           </div>
 
-          <div>
-            <label htmlFor="title"> Personal Connect</label>
+          <div className="space-y-2 mt-6">
+            <label
+              htmlFor="title"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {' '}
+              Personal Connect
+            </label>
             {/* <Input
               type="text"
               className="mt-2"
@@ -146,12 +165,12 @@ export const UploadScriptScreen = () => {
               value={personalConnect}
               onChange={(e) => handlePersonalConnectChange(e.target.value)}
             />
-            <p className="">
+            <p className="text-[0.8rem] text-muted-foreground">
               Tell us why you want to tell this story (Max{' '}
               {maxPersonalConnectCharacters} characters).
             </p>
             <p
-              className={`text-${
+              className={`text-[0.8rem] text-muted-foreground text-${
                 personalConnectCharCount > maxPersonalConnectCharacters
                   ? 'red'
                   : 'gray'
@@ -165,7 +184,7 @@ export const UploadScriptScreen = () => {
           <Button
             variant="default"
             size="lg"
-            className="mt-4"
+            className="mt-4 "
             onClick={submitScriptHandler}
             disabled={isSubmitDisabled()} // Disable the button based on character counts
           >

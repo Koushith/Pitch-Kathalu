@@ -1,14 +1,16 @@
-import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
-import { useFetchAllScriptsQuery } from "@/slices/scriptApiSlice";
-import { formatDate } from "@/utils/format-date";
-import { Avatar } from "@radix-ui/react-avatar";
-import { Link, useNavigate } from "react-router-dom";
+import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Card, CardHeader } from '@/components/ui/card'
+import { useFetchAllScriptsQuery } from '@/slices/scriptApiSlice'
+import { formatDate } from '@/utils/format-date'
+import { Avatar } from '@radix-ui/react-avatar'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const AllUploadsScreen = () => {
-  const { data, isLoading } = useFetchAllScriptsQuery("");
-  const navigate = useNavigate();
+  const { data, isLoading } = useFetchAllScriptsQuery('', {
+    refetchOnMountOrArgChange: true,
+  })
+  const navigate = useNavigate()
   return (
     <Card className="max-w-screen-lg bg-background">
       <CardHeader>All Scripts</CardHeader>
@@ -61,25 +63,25 @@ export const AllUploadsScreen = () => {
                         <Avatar
                           className="rounded-full mr-2"
                           style={{
-                            borderRadius: "50%",
-                            height: "30px",
-                            width: "30px",
+                            borderRadius: '50%',
+                            height: '30px',
+                            width: '30px',
                           }}
                         >
                           <AvatarImage
                             src={script?.avatar}
                             className="aspect-square h-full w-full"
                             style={{
-                              borderRadius: "50%",
-                              height: "30px",
-                              width: "30px",
+                              borderRadius: '50%',
+                              height: '30px',
+                              width: '30px',
                             }}
                           />
                           <AvatarFallback
                             style={{
-                              borderRadius: "50%",
-                              height: "30px",
-                              width: "30px",
+                              borderRadius: '50%',
+                              height: '30px',
+                              width: '30px',
                             }}
                           >
                             OM
@@ -89,12 +91,12 @@ export const AllUploadsScreen = () => {
                       </Link>
                     </td>
                     <td className="px-6 py-4 bg-background">
-                      {formatDate(script?.uploadDate, "mm/dd/yy")}/2023
+                      {formatDate(script?.uploadDate, 'mm/dd/yy')}/2023
                     </td>
 
                     <td className="px-6 py-4 bg-background">
                       <Button
-                        variant={"outline"}
+                        variant={'outline'}
                         onClick={() => navigate(`/view-script/${script._id}`)}
                         rel="noopener noreferrer"
                         className=""
@@ -110,5 +112,5 @@ export const AllUploadsScreen = () => {
         </table>
       </div>
     </Card>
-  );
-};
+  )
+}
