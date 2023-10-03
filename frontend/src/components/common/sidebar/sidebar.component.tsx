@@ -59,7 +59,7 @@ export const SideBar = () => {
             } h-9 px-4 py-2 w-full justify-start`}
           >
             <Heart className="h-[1.2rem] w-[1.2rem]" />{' '}
-            <Link to="/liked-scripts">Liked Scripts</Link>
+            <Link to="/liked-scripts">Shortlisted </Link>
           </li>
         )}
         <li
