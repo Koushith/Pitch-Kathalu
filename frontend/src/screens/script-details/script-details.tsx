@@ -1,12 +1,12 @@
+import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useIsAdmin } from '@/hooks'
 import {
   useFetchOneScriptQuery,
   useLikeScriptMutation,
 } from '@/slices/scriptApiSlice'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import './ScriptDetailsScreen.css' // You can create a CSS file for your component
 
 export const ScriptDetailsScreen = () => {
   const [liked, setLiked] = useState(false)
@@ -35,7 +35,7 @@ export const ScriptDetailsScreen = () => {
         setLiked(true)
       }
     } catch (error) {
-      console.log('somehing went wrong', error)
+      console.log('Something went wrong', error)
       alert('Already Shortlisted', error)
     }
   }
@@ -69,19 +69,23 @@ export const ScriptDetailsScreen = () => {
       <div className="mt-10">
         <div>
           <h2 className="font-semibold leading-none tracking-tight">Logline</h2>
-          <p className="text-sm text-muted-foreground mt-4">{logline}</p>
+          <p className="text-sm text-muted-foreground mt-4 logline">
+            {logline}
+          </p>
         </div>
         <div className="mt-6">
           <h2 className="font-semibold leading-none tracking-tight">
             Synopsis
           </h2>
-          <p className="text-sm text-muted-foreground mt-4">{synopsis}</p>
+          <p className="text-sm text-muted-foreground mt-4 synopsis">
+            {synopsis}
+          </p>
         </div>
         <div className="mt-6">
-          <h2 className="font-semibold leading-none tracking-tight ">
+          <h2 className="font-semibold leading-none tracking-tight">
             Personal Connect
           </h2>
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-muted-foreground mt-4 personalConnect">
             {personalConnect}
           </p>
         </div>

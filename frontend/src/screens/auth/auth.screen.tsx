@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-dropdown-menu";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { signupWithGoogle } from "@/utils";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { signupWithGoogle } from '@/utils'
 
 import {
   Card,
@@ -12,62 +12,60 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
-import { ChromeIcon } from "lucide-react";
-import { setCredientials } from "@/slices/userSlice";
-import { useLoginMutation } from "@/slices/userApiSlice";
+} from '@/components/ui/card'
+import { ChromeIcon } from 'lucide-react'
+import { setCredientials } from '@/slices/userSlice'
+import { useLoginMutation } from '@/slices/userApiSlice'
 
 export const AuthScreen = () => {
-  const { isAuthendicated } = useSelector((state) => state.auth);
+  const { isAuthendicated } = useSelector((state) => state.auth)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isAuthendicated) {
-      navigate("/");
+      navigate('/')
     }
-  }, [isAuthendicated]);
+  }, [isAuthendicated])
 
-  const dispatch = useDispatch();
-  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch()
+  const [login, { isLoading }] = useLoginMutation()
 
   const loginHandler = async () => {
-    const { user } = await signupWithGoogle();
-    console.log("user,", user);
-    dispatch(setCredientials({ ...user }));
-    const { displayName, email, photoURL, uid } = user;
+    const { user } = await signupWithGoogle()
+    console.log('user,', user)
+    dispatch(setCredientials({ ...user }))
+    const { displayName, email, photoURL, uid } = user
 
-    const res = await login({ displayName, email, photoURL, uid }).unwrap();
-    console.log("res---", res);
-  };
+    const res = await login({ displayName, email, photoURL, uid }).unwrap()
+    console.log('res---', res)
+  }
 
   return (
     <div className="flex items-center justify-center mt-10">
-      {" "}
+      {' '}
       {/* Updated: Added h-screen */}
       <div className="w-full max-w-sm">
-        {" "}
+        {' '}
         {/* Updated: Added max-w-sm */}
         <Card className="bg-background">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Sign in to Pitch Kathalu</CardTitle>
-            <CardDescription>
-              Enter your email below to sign in to your account
-            </CardDescription>
+            <CardDescription>sign in to your account</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <div className="grid gap-2">
+            {/* <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" placeholder="m@example.com" />
-            </div>
+            </div> */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
+                {/* <span className="bg-background px-2 text-muted-foreground">
                   Or continue with
-                </span>
+                </span> */}
               </div>
             </div>
 
@@ -79,5 +77,5 @@ export const AuthScreen = () => {
         </Card>
       </div>
     </div>
-  );
-};
+  )
+}
