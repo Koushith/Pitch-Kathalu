@@ -1,3 +1,4 @@
+//@ts-nocheck
 import mongoose from 'mongoose'
 
 const ScriptSchema = new mongoose.Schema({
@@ -7,7 +8,7 @@ const ScriptSchema = new mongoose.Schema({
   },
   logline: {
     type: String,
-  }, // Add a title field to store the script's title
+  },
   synopsis: {
     type: String,
   },
@@ -39,6 +40,33 @@ const ScriptSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+})
+
+// Virtual field to calculate the week number of creation
+ScriptSchema.virtual('weekNumber').get(function () {
+  const currentDate = this.uploadDate
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+  const currentDay = currentDate.getDate()
+
+  const startOfWeek = new Date(currentYear, currentMonth, currentDay)
+  startOfWeek.setDate(currentDay - currentDate.getDay()) // Adjust for the start of the week
+
+  const endOfWeek = new Date(currentYear, currentMonth, currentDay)
+  endOfWeek.setDate(currentDay + (6 - currentDate.getDay())) // Adjust for the end of the week
+
+  // Convert the dates to UTC to ensure consistent comparison
+  const startOfWeekUTC = new Date(
+    Date.UTC(currentYear, currentMonth, startOfWeek.getUTCDate())
+  )
+  const endOfWeekUTC = new Date(
+    Date.UTC(currentYear, currentMonth, endOfWeek.getUTCDate())
+  )
+
+  return {
+    startOfWeek: startOfWeekUTC,
+    endOfWeek: endOfWeekUTC,
+  }
 })
 
 const LikedScriptSchema = new mongoose.Schema({

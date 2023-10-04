@@ -6,6 +6,7 @@ import { useSubmitScriptMutation } from '@/slices/scriptApiSlice'
 import { Loader2 } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 
 export const UploadScriptScreen = () => {
   const [logline, setLogLine] = useState('')
@@ -105,36 +106,44 @@ export const UploadScriptScreen = () => {
           setSynopsis('')
           setPhoneNumber('')
           navigate('/profile')
+          toast.success('Success.. submitted')
+        } else {
+          if (res.status === 400) {
+            toast.error(res.message)
+          }
         }
 
         console.log('submitted???', res)
       } catch (e) {
         console.log('Something went wrong....', e)
+
+        toast.error(e.data.message)
       }
     }
   }
 
   return (
-    <div className="left mt-6">
-      <h1 className="font-semibold leading-none tracking-tight">
+    <div className='left mt-6'>
+      <Toaster position='top-center' />
+      <h1 className='font-semibold leading-none tracking-tight'>
         Upload Your Script 🚀
       </h1>
-      <div className="mt-6 w-full md:w-1/2">
-        <div className="space-y-2">
+      <div className='mt-6 w-full md:w-1/2'>
+        <div className='space-y-2'>
           <label
-            htmlFor="title"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor='title'
+            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
           >
             {' '}
             Log Line
           </label>
           <Input
-            type="text"
-            className="mt-2"
+            type='text'
+            className='mt-2'
             value={logline}
             onChange={(e) => handleLoglineChange(e.target.value)}
           />
-          <p className="text-[0.8rem] text-muted-foreground">
+          <p className='text-[0.8rem] text-muted-foreground'>
             One-sentence summary or description of a movie (Max{' '}
             {maxLoglineCharacters} characters).
           </p>
@@ -147,20 +156,20 @@ export const UploadScriptScreen = () => {
           </p>
         </div>
 
-        <div className="space-y-2 mt-6">
+        <div className='space-y-2 mt-6'>
           <label
-            htmlFor="title"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor='title'
+            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
           >
             {' '}
             Synopsis
           </label>
           <Textarea
-            placeholder="Type your message here."
+            placeholder='Type your message here.'
             value={synopsis}
             onChange={(e) => handleSynopsisChange(e.target.value)}
           />
-          <p className="text-[0.8rem] text-muted-foreground">
+          <p className='text-[0.8rem] text-muted-foreground'>
             Write-up that describes the plot and world of your story (Max{' '}
             {maxSynopsisCharacters} characters).
           </p>
@@ -173,21 +182,21 @@ export const UploadScriptScreen = () => {
           </p>
         </div>
 
-        <div className="space-y-2 mt-6">
+        <div className='space-y-2 mt-6'>
           <label
-            htmlFor="title"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor='title'
+            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
           >
             {' '}
             Personal Connect
           </label>
 
           <Textarea
-            placeholder="Type your message here."
+            placeholder='Type your message here.'
             value={personalConnect}
             onChange={(e) => handlePersonalConnectChange(e.target.value)}
           />
-          <p className="text-[0.8rem] text-muted-foreground">
+          <p className='text-[0.8rem] text-muted-foreground'>
             Tell us why you want to tell this story (Max{' '}
             {maxPersonalConnectCharacters} characters).
           </p>
@@ -201,10 +210,10 @@ export const UploadScriptScreen = () => {
           </p>
         </div>
 
-        <div className="space-y-2 mt-6">
+        <div className='space-y-2 mt-6'>
           <label
-            htmlFor="title"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor='title'
+            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
           >
             {' '}
             Phone Number
@@ -212,12 +221,12 @@ export const UploadScriptScreen = () => {
 
           <Input
             required
-            type="tel"
-            placeholder="Enter your Phone Number"
+            type='tel'
+            placeholder='Enter your Phone Number'
             value={phoneNumber}
             onChange={(e) => handlePhoneNumberChange(e.target.value)}
           />
-          <p className="text-[0.8rem] text-muted-foreground">
+          <p className='text-[0.8rem] text-muted-foreground'>
             We will contact you if things go well 🚀
           </p>
           <p
@@ -230,13 +239,13 @@ export const UploadScriptScreen = () => {
         </div>
 
         <Button
-          variant="default"
-          size="lg"
+          variant='default'
+          size='lg'
           className={`mt-4`}
           onClick={submitScriptHandler}
         >
           {isLoading && (
-            <Loader2 className="h-[1.2rem] w-[1.2rem] mr-2 animate-spin" />
+            <Loader2 className='h-[1.2rem] w-[1.2rem] mr-2 animate-spin' />
           )}
           {isLoading ? 'Submitting...' : 'Submit'}
         </Button>
