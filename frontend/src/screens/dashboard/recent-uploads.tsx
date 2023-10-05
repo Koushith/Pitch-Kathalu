@@ -10,15 +10,15 @@ export const RecentUploads = ({ allScripts, isLoading }: any) => {
   const navigate = useNavigate()
 
   return (
-    <div className="space-y-8">
+    <div className='space-y-8'>
       {isLoading ? (
         <>Loading..</>
       ) : (
         <>
           {allScripts.slice(-5).map((s) => (
-            <div className="flex items-center" key={s?._id}>
+            <div className='flex items-center' key={s?._id}>
               <Avatar
-                className="rounded-full border flex items-center justify-center"
+                className='rounded-full border flex items-center justify-center'
                 style={{
                   borderRadius: '50%',
                   height: '40px',
@@ -27,19 +27,19 @@ export const RecentUploads = ({ allScripts, isLoading }: any) => {
               >
                 <FileTextIcon />
               </Avatar>
-              <div className="ml-4 space-y-1">
-                <p className="text-sm font-medium leading-none">{s?.logline}</p>
+              <div className='ml-4 space-y-1'>
+                <p className='text-sm font-medium leading-none'>{s?.logline}</p>
                 <p
-                  className="text-sm text-muted-foreground cursor-pointer"
+                  className='text-sm text-muted-foreground cursor-pointer'
                   onClick={() => navigate(`/user/${s?.userUid}`)}
                 >
                   {' '}
                   uploaded by {s?.userName}
                 </p>
               </div>
-              <div className="ml-auto font-medium">
+              <div className='ml-auto font-medium'>
                 <Button
-                  variant="outline"
+                  variant='outline'
                   onClick={() => navigate(`/view-script/${s?._id}`)}
                 >
                   View
@@ -50,7 +50,7 @@ export const RecentUploads = ({ allScripts, isLoading }: any) => {
         </>
       )}
 
-      <Button className="w-full" onClick={() => navigate('/uploads')}>
+      <Button className='w-full' onClick={() => navigate('/uploads')}>
         View More
       </Button>
     </div>
