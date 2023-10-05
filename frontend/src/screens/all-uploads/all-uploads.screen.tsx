@@ -45,6 +45,7 @@ export const AllUploadsScreen = () => {
               <>
                 {data?.allScripts?.map((script, index) => (
                   <tr
+                    onClick={() => navigate(`/view-script/${script._id}`)}
                     key={script._id}
                     className='bg-background border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 bg-background'
                   >
