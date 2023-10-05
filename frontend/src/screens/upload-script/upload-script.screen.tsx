@@ -24,7 +24,7 @@ export const PreviousWinner = () => {
             Looking for an Inspiration? - Checkout our previous winner🏆
           </AccordionTrigger>
           <AccordionContent>
-            <div className='mt-10'>
+            <div className='mt-10' style={{ maxWidth: '700px' }}>
               <div>
                 <h2 className='font-semibold leading-none tracking-tight'>
                   Logline
