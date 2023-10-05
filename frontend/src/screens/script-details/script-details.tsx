@@ -60,6 +60,7 @@ export const ScriptDetailsScreen = () => {
     userName,
     phoneNumber,
   } = data.script
+
   const downloadAsPDF = () => {
     const pdf = new jsPDF({
       orientation: 'portrait', // Portrait orientation for A4 size
@@ -69,11 +70,10 @@ export const ScriptDetailsScreen = () => {
 
     // Set the maximum width for text content
     const maxTextWidth = pdf.internal.pageSize.width - 40 // Leave some margin
-
-    // Add content to the PDF with line breaks and proper spacing
-    pdf.setFontSize(12)
+    const lineHeight = 10 // Height of each line
 
     // User Details
+    pdf.setFontSize(12)
     pdf.text(`User Details:`, 10, 10)
     pdf.text(`Name: ${userName}`, 20, 20, { maxWidth: maxTextWidth })
     pdf.text(`Email: ${email}`, 20, 30, { maxWidth: maxTextWidth })
@@ -81,15 +81,45 @@ export const ScriptDetailsScreen = () => {
 
     // Logline
     pdf.text(`Logline:`, 10, 60)
-    pdf.text(`${logline}`, 20, 70, { maxWidth: maxTextWidth })
+    pdf.textWithLink(
+      `${logline}`,
+      20,
+      70,
+      { url: '', maxWidth: maxTextWidth },
+      null,
+      'underline'
+    )
 
     // Synopsis
-    pdf.text(`Synopsis:`, 10, 100)
-    pdf.text(`${synopsis}`, 20, 110, { maxWidth: maxTextWidth })
+    const synopsisLines = pdf.splitTextToSize(synopsis, maxTextWidth)
+    let currentY = 100 // Start at 100 to give space for the title
+    pdf.text(`Synopsis:`, 10, currentY)
+    currentY += lineHeight
+    for (const line of synopsisLines) {
+      if (currentY + lineHeight > pdf.internal.pageSize.height - 20) {
+        pdf.addPage()
+        currentY = 20
+      }
+      pdf.text(line, 20, currentY)
+      currentY += lineHeight
+    }
 
     // Personal Connect
-    pdf.text(`Personal Connect:`, 10, 140)
-    pdf.text(`${personalConnect}`, 20, 150, { maxWidth: maxTextWidth })
+    const personalConnectLines = pdf.splitTextToSize(
+      personalConnect,
+      maxTextWidth
+    )
+    currentY = pdf.internal.pageSize.height - 20 // Start at the bottom
+    pdf.text(`Personal Connect:`, 10, currentY)
+    currentY += lineHeight
+    for (const line of personalConnectLines) {
+      if (currentY + lineHeight > pdf.internal.pageSize.height - 20) {
+        pdf.addPage()
+        currentY = 20
+      }
+      pdf.text(line, 20, currentY)
+      currentY += lineHeight
+    }
 
     // Save the PDF to a file
     pdf.save('script_details.pdf')

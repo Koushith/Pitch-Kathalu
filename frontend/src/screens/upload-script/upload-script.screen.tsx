@@ -2,11 +2,116 @@ import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+
 import { useSubmitScriptMutation } from '@/slices/scriptApiSlice'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Target } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
+
+export const PreviousWinner = () => {
+  return (
+    <div className='mt-2'>
+      <Accordion type='single' collapsible>
+        <AccordionItem value='item-1'>
+          <AccordionTrigger>
+            Looking for an Inspiration? - Checkout our previous winner🏆
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className='mt-10'>
+              <div>
+                <h2 className='font-semibold leading-none tracking-tight'>
+                  Logline
+                </h2>
+                <p className='text-sm text-muted-foreground mt-4 logline'>
+                  A young student studying abroad juggles the demands of school
+                  and caring for his parents, but when tragedy strikes and his
+                  mother dies, he must learn to reconnect with his distant
+                  father who despises technology in this heartwarming tale told
+                  through computer and phone screens.
+                </p>
+              </div>
+              <div className='mt-6'>
+                <h2 className='font-semibold leading-none tracking-tight'>
+                  Synopsis
+                </h2>
+                <p className='text-sm text-muted-foreground mt-4 synopsis'>
+                  We are introduced to Vikram, a young man who cherishes the
+                  happy family photo of himself, his dad, and his loving mother
+                  before leaving abroad for college. Despite his deep connection
+                  with his mom, Vikram's relationship with his father is distant
+                  and formal. The film's theme is subtly stated: "Malli eppudu
+                  dorukuthavo ento," reminding us of the uncertainty of life's
+                  arrivals. Tragedy strikes when Vikram's beloved mother passes
+                  away. It gets worse when Vikram is forced to take a
+                  heart-wrenching decision: he tells his father that he can't
+                  attend the funeral, causing his father to abruptly hang up on
+                  him. Simultaneously, Vikram's personal life is falling apart
+                  as he avoids his girlfriend. Desperate for emotional support,
+                  he tries reaching out to his dad through video calls, but his
+                  father remains closed off. Vikram breaks down while listening
+                  to the playlist he made for his mother. He seeks solace in his
+                  girlfriend, only to face another blow as she ends their
+                  relationship. As Vikram's world crumbles, his father accuses
+                  him of being a bad son. After which we discover that the
+                  father honors his late wife's memory by making her a cup of
+                  coffee whenever he has one. Memories flood back as Vikram
+                  watches family videos that his mother sent him and he had
+                  ignored, in which his mother points how how her husband loves
+                  his son but cannot express it, but rather shows it by checking
+                  in on him through his mother. Vikram takes a step towards
+                  healing. He makes a cup of coffee and calls her phone. In the
+                  emotional climax, Vikram tells his father that they don't need
+                  words; he can simply be there for him. Finally, father and son
+                  reconcile, bridging the gap that had separated them. In the
+                  closing image, the father brings his wife's coffee cup into
+                  the frame, completing the picture.
+                </p>
+              </div>
+              <div className='mt-6'>
+                <h2 className='font-semibold leading-none tracking-tight'>
+                  Personal Connect
+                </h2>
+                <p className='text-sm text-muted-foreground mt-4 personalConnect'>
+                  Ever since I’ve moved to the US for college 2 years ago, my
+                  biggest fear was losing one of my own people. I’m extremely
+                  close with my mother, and if anything happened to her and I
+                  wouldn’t be able to go meet her would be my biggest nightmare.
+                  So I’m trying to play off that emotion, and show how two men
+                  who aren’t used to expressing emotions with each other without
+                  their mother around learn to emote and get close again while
+                  learning the value of family.
+                </p>
+              </div>
+
+              <div className='mt-6'>
+                <h2 className='font-semibold leading-none tracking-tight'></h2>
+                <div className='text-sm text-muted-foreground mt-4 personalConnect'>
+                  <Button
+                    onClick={() =>
+                      window.open(
+                        'https://youtu.be/-RL797DTeEE?si=Os0QEELeWElWN0Os',
+                        '_next'
+                      )
+                    }
+                  >
+                    Check the Video here
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  )
+}
 
 export const UploadScriptScreen = () => {
   const [logline, setLogLine] = useState('')
@@ -126,11 +231,13 @@ export const UploadScriptScreen = () => {
   }
 
   return (
-    <div className='left mt-6'>
+    <div className='left mt-6 mb-10'>
       <Toaster position='top-center' />
       <h1 className='font-semibold leading-none tracking-tight'>
         Upload Your Script 🚀
       </h1>
+
+      <PreviousWinner />
       <div className='mt-6 w-full md:w-1/2'>
         <div className='space-y-2'>
           <label
