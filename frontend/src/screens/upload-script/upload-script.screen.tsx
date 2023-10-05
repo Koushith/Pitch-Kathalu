@@ -69,20 +69,23 @@ export const UploadScriptScreen = () => {
 
   // Determine whether to disable the submit button
 
-  const maxLoglineCharacters = 50
-  const maxSynopsisCharacters = 350
-  const maxPersonalConnectCharacters = 150
+  const maxLoglineWords = 50 // Set the maximum word count for logline
+  const maxSynopsisWords = 350 // Set the maximum word count for synopsis
+  const maxPersonalConnectWords = 150 // Set the maximum word count for personalConnect
+
+  const wordCount = (text: any) =>
+    text.split(/\s+/).filter((word: any) => word !== '').length
+
   const submitScriptHandler = async () => {
     // Check if any of the fields are empty
 
     let isValid = false
     if (
-      logline.length === 0 &&
-      synopsis.length === 0 &&
-      personalConnect.length === 0 &&
-      phoneNumber.length == 0
+      wordCount(logline) > maxLoglineWords ||
+      wordCount(synopsis) > maxSynopsisWords ||
+      wordCount(personalConnect) > maxPersonalConnectWords
     ) {
-      alert('Please fill out all fields.')
+      alert('One or more fields exceed the maximum word count.')
       setDisabled(true)
       isValid = false
       return // Don't proceed with submission
@@ -117,7 +120,7 @@ export const UploadScriptScreen = () => {
       } catch (e) {
         console.log('Something went wrong....', e)
 
-        toast.error(e.data.message)
+        toast.error(e?.data.message)
       }
     }
   }
@@ -145,14 +148,14 @@ export const UploadScriptScreen = () => {
           />
           <p className='text-[0.8rem] text-muted-foreground'>
             One-sentence summary or description of a movie (Max{' '}
-            {maxLoglineCharacters} characters).
+            {maxLoglineWords} characters).
           </p>
           <p
             className={`text-[0.8rem] text-muted-foreground text-${
               loglineValid ? 'gray' : 'red'
             } text-xs`}
           >
-            Characters remaining: {maxLoglineCharacters - logline.length}
+            Words remaining: {maxLoglineWords - wordCount(logline)}
           </p>
         </div>
 
@@ -171,14 +174,14 @@ export const UploadScriptScreen = () => {
           />
           <p className='text-[0.8rem] text-muted-foreground'>
             Write-up that describes the plot and world of your story (Max{' '}
-            {maxSynopsisCharacters} characters).
+            {maxSynopsisWords} words).
           </p>
           <p
             className={`text-[0.8rem] text-muted-foreground text-${
               synopsisValid ? 'gray' : 'red'
             } text-xs`}
           >
-            Characters remaining: {maxSynopsisCharacters - synopsis.length}
+            Words remaining: {maxSynopsisWords - wordCount(synopsis)}
           </p>
         </div>
 
@@ -198,15 +201,15 @@ export const UploadScriptScreen = () => {
           />
           <p className='text-[0.8rem] text-muted-foreground'>
             Tell us why you want to tell this story (Max{' '}
-            {maxPersonalConnectCharacters} characters).
+            {maxPersonalConnectWords} words).
           </p>
           <p
             className={`text-[0.8rem] text-muted-foreground text-${
               personalConnectValid ? 'gray' : 'red'
             } text-xs`}
           >
-            Characters remaining:{' '}
-            {maxPersonalConnectCharacters - personalConnect.length}
+            Words remaining:{' '}
+            {maxPersonalConnectWords - wordCount(personalConnect)}
           </p>
         </div>
 
