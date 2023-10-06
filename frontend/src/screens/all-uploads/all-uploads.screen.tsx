@@ -11,106 +11,74 @@ export const AllUploadsScreen = () => {
     refetchOnMountOrArgChange: true,
   })
   const navigate = useNavigate()
+
   return (
     <Card className='max-w-screen-lg bg-background'>
       <CardHeader>All Scripts</CardHeader>
-      <div className='relative overflow-x-auto shadow-md rounded-xl bg-background p-6'>
-        <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-background rounded-md border'>
-          <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border'>
-            <tr>
-              <th scope='col' className='px-6  bg-background'>
-                SL No
-              </th>
-              <th scope='col' className='px-6 py-3  bg-background'>
-                Script Title
-              </th>
-              <th scope='col' className='px-6 py-3  bg-background'>
-                Uploaded By
-              </th>
-              <th scope='col' className='px-6 py-3  bg-background'>
-                Uploaded On
-              </th>
-              {/* <th scope="col" className="px-6 py-3">
-                Price
-              </th> */}
-              <th scope='col' className='px-6 py-3 bg-background'>
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <>Loading</>
-            ) : (
-              <>
-                {data?.allScripts?.map((script, index) => (
-                  <tr
-                    onClick={() => navigate(`/view-script/${script._id}`)}
-                    key={script._id}
-                    className='bg-background border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 bg-background'
+      <div className='relative overflow-x-auto bg-background p-6'>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            {data?.allScripts?.map((script, index) => (
+              <div
+                key={script._id}
+                className='bg-background border rounded-md shadow-md dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 p-4 cursor-pointer mb-4'
+                onClick={() => navigate(`/view-script/${script._id}`)}
+              >
+                <h2 className='text-lg font-medium text-gray-900 dark:text-white mb-2'>
+                  {script.logline}
+                </h2>
+                <div className='flex items-center mb-2'>
+                  <Link
+                    to={`/user/${script?.userUid}`}
+                    className='flex items-center'
                   >
-                    <td className='w-4 p-4 bg-background'>{index + 1}</td>
-                    <th
-                      scope='row'
-                      className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-background'
+                    <Avatar
+                      className='rounded-full mr-2'
+                      style={{
+                        borderRadius: '50%',
+                        height: '30px',
+                        width: '30px',
+                      }}
                     >
-                      {script.logline}
-                    </th>
-                    <td className='px-6 py-4 bg-background cursor-pointer  '>
-                      <Link
-                        to={`/user/${script?.userUid}`}
-                        className='flex  items-center'
+                      <AvatarImage
+                        src={script?.avatar}
+                        className='aspect-square h-full w-full'
+                        style={{
+                          borderRadius: '50%',
+                          height: '30px',
+                          width: '30px',
+                        }}
+                      />
+                      <AvatarFallback
+                        style={{
+                          borderRadius: '50%',
+                          height: '30px',
+                          width: '30px',
+                        }}
                       >
-                        <Avatar
-                          className='rounded-full mr-2'
-                          style={{
-                            borderRadius: '50%',
-                            height: '30px',
-                            width: '30px',
-                          }}
-                        >
-                          <AvatarImage
-                            src={script?.avatar}
-                            className='aspect-square h-full w-full'
-                            style={{
-                              borderRadius: '50%',
-                              height: '30px',
-                              width: '30px',
-                            }}
-                          />
-                          <AvatarFallback
-                            style={{
-                              borderRadius: '50%',
-                              height: '30px',
-                              width: '30px',
-                            }}
-                          >
-                            OM
-                          </AvatarFallback>
-                        </Avatar>
-                        {script?.userName}
-                      </Link>
-                    </td>
-                    <td className='px-6 py-4 bg-background'>
-                      {formatDate(script?.uploadDate, 'mm/dd/yy')}/2023
-                    </td>
-
-                    <td className='px-6 py-4 bg-background'>
-                      <Button
-                        variant={'outline'}
-                        onClick={() => navigate(`/view-script/${script._id}`)}
-                        rel='noopener noreferrer'
-                        className=''
-                      >
-                        View
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </>
-            )}
-          </tbody>
-        </table>
+                        OM
+                      </AvatarFallback>
+                    </Avatar>
+                    {script?.userName}
+                  </Link>
+                </div>
+                <p className='text-gray-500 dark:text-gray-400'>
+                  Uploaded On: {formatDate(script?.uploadDate, 'mm/dd/yy')}/2023
+                </p>
+                <Button
+                  variant='outline'
+                  onClick={() => navigate(`/view-script/${script._id}`)}
+                  rel='noopener noreferrer'
+                  className='mt-2'
+                >
+                  View
+                </Button>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </Card>
   )
