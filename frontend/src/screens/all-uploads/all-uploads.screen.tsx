@@ -20,7 +20,7 @@ export const AllUploadsScreen = () => {
           <p>Loading...</p>
         ) : (
           <>
-            {data?.allScripts?.map((script, index) => (
+            {data?.allScripts?.toReversed().map((script, index) => (
               <div
                 key={script._id}
                 className='bg-background border rounded-md shadow-md dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 p-4 cursor-pointer mb-4'
