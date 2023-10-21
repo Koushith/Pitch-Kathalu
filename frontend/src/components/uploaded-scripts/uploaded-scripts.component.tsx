@@ -30,7 +30,7 @@ export const UploadedScripts = ({ allScripts, isScriptsLoading }: any) => {
           </>
         ) : (
           <>
-            {allScripts?.toReversed().scripts.map((s) => (
+            {allScripts?.scripts.toReversed().map((s) => (
               <div key={s._id}>
                 <CardContent className='grid gap-6 '>
                   <div className='flex items-center border-b pb-4 p-2 justify-between space-x-4 '>
