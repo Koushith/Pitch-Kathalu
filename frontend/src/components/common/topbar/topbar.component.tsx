@@ -139,9 +139,9 @@ export const TopBar = () => {
                 <DropdownMenuItem onClick={() => navigate('/profile')}>
                   Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('/users')}>
+                {/* <DropdownMenuItem onClick={() => navigate('/users')}>
                   Users
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
